@@ -58,12 +58,10 @@ jobs:
 
       - name: Install dependencies
         run: | # is the pipe needed?
-          cd ./website # needed?
           npm ci
 
       - name: Build website
         run: | # is the pipe needed?
-          cd ./website # needed?
           npm run build
 
       - name: Setup Pages
