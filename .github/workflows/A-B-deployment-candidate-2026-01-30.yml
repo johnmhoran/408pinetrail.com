@@ -29,7 +29,7 @@ defaults:
     shell: bash
 
 jobs:
-  build & deploy: # does the name matter?
+  build-deploy: # IDs may only contain alphanumeric characters, '_', and '-'. IDs must start with a letter or '_' and must be less than 100 characters.
 
     environment: # is this only for use of the gh-pages branch approach?
       name: github-pages
