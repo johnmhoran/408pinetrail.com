@@ -1,10 +1,10 @@
 import React from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import HomeIntro from './HomeIntro.mdx';
-import ProjectOverview from './ProjectOverview.md';
-import Supporters from './Supporters.md';
-import SupporterGrid from '@site/src/components/SupporterGrid';
-import ProjectGridTemplate from '@site/src/components/ProjectGridTemplate';
+
+
+
+
 import styles from './styles.module.css';
 
 export default function HomepageContent() {
@@ -19,7 +19,6 @@ export default function HomepageContent() {
                     className={styles.sectionHeader}
                     style={{ marginBottom: '15px', marginTop: '15px' }}
                 >
-                    {/* <h1>AboutCode Capabilities</h1> */}
 
                 </div>
                 <div className={styles.sectionIntro}>
@@ -32,10 +31,10 @@ export default function HomepageContent() {
                     className={styles.sectionHeader}
                     style={{ marginBottom: '15px', marginTop: '15px' }}
                 >
-                    {/* <h1>AboutCode Projects Overview</h1> */}
-                    <h1>Why you earthlings have nothing to fear from us</h1>
+
+                    <h1>Some message?</h1>
                 </div>
-                <div>Uh . . . .</div>
+                <div>This is /components/HomepageContent/index.js.</div>
 
                 {/* <div className={styles.sectionIntro}>
                     <ProjectOverview />

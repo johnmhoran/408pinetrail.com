@@ -1,4 +1,3 @@
-// 2026-01-01 Thursday 16:34:43.From aboutcode.org.
 // @ts-check
 // `@type` JSDoc annotations allow editor autocompletion and type checking
 // (when paired with `@ts-check`).
@@ -11,10 +10,8 @@ import { themes as prismThemes } from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    // title: 'AboutCode.org',
     title: '408pinetrail.com',
     tagline: '[Tagline . . . ?]',
-    // favicon: 'img/nexB_icon.png',
     favicon: "img/favicon-test.ico",
 
     markdown: {
@@ -38,14 +35,15 @@ const config = {
     // projectName: 'docusaurus', // Usually your repo name.
 
     // ======================================================================
-    // 2026-01-01 Thursday 17:40:49.
-    // url: 'https://aboutcode-org.github.io',
-    // baseUrl: '/www.aboutcode.org/',
+    // GH Pages deployment:
+    // url: 'https://johnmhoran.github.io',
+    // baseUrl: '/408pinetrail.com/',
     // trailingSlash: false,
 
+    // DreamHost deployment:
     url: "https://www.408pinetrail.com",
-    // For DreamHost deployment:
     baseUrl: "/",
+    trailingSlash: false,
 
     // For GitHub pages deployment:
     // organizationName: 'aboutcode-org',

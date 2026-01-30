@@ -17,46 +17,8 @@ const sidebars = {
    */
 
     about: [
-        // 'about/about-aboutcode-foundation',
-        // 'about/about-contribute',
-        // 'about/about-resources',
         'about/about-news',
-        // 'about/about-events',
-        // 'about/about-history',
     ],
-
-    // dejacode: [
-    //     'dejacode/dejacode-welcome',
-    //     'dejacode/dejacode-getting-started',
-    //     'dejacode/dejacode-capabilities',
-    //     'dejacode/dejacode-explore-dejacode',
-    //     'dejacode/dejacode-cravex',
-    //     'dejacode/dejacode-documentation',
-    // ],
-
-    // purldb: [
-    //     'purldb/purldb-welcome',
-    //     'purldb/purldb-getting-started',
-    //     'purldb/purldb-packageurl-spec',
-    //     'purldb/purldb-purldb-service',
-    //     'purldb/purldb-documentation',
-    // ],
-
-    // scancode: [
-    //     'scancode/scancode-welcome',
-    //     'scancode/scancode-getting-started',
-    //     'scancode/scancode-capabilities',
-    //     'scancode/scancode-documentation',
-    // ],
-
-    // vulnerablecode: [
-    //     'vulnerablecode/vulnerablecode-welcome',
-    //     'vulnerablecode/vulnerablecode-getting-started',
-    //     'vulnerablecode/vulnerablecode-capabilities',
-    //     'vulnerablecode/vulnerablecode-vcio-service',
-    //     'vulnerablecode/vulnerablecode-documentation',
-    // ],
-
 };
 
 export default sidebars;
