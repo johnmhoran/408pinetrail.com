@@ -36,14 +36,14 @@ const config = {
 
     // ======================================================================
     // GH Pages deployment:
-    // url: 'https://johnmhoran.github.io',
-    // baseUrl: '/408pinetrail.com/',
-    // trailingSlash: false,
+    url: 'https://johnmhoran.github.io',
+    baseUrl: '/408pinetrail.com/',
+    trailingSlash: false,
 
     // DreamHost deployment:
-    url: "https://www.408pinetrail.com",
-    baseUrl: "/",
-    trailingSlash: false,
+    // url: "https://www.408pinetrail.com",
+    // baseUrl: "/",
+    // trailingSlash: false,
 
     // For GitHub pages deployment:
     // organizationName: 'aboutcode-org',
