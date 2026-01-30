@@ -1,0 +1,80 @@
+name: Deploy Website to GitHub Pages
+
+# trigger the workflow
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# is this needed?
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# Needed?
+# Default to bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build & deploy: # does the name matter?
+
+    environment: # is this only for use of the gh-pages branch approach?
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./website
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with: # needed?
+          fetch-depth: 0
+        env: # needed?
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # quotes or no quotes?
+		  # needed?
+          cache: npm
+          cache-dependency-path: ./website/package-lock.json
+
+      - name: Install dependencies
+        run: | # is the pipe needed?
+          cd ./website # needed?
+          npm ci
+
+      - name: Build website
+        run: | # is the pipe needed?
+          cd ./website # needed?
+          npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/build
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
