@@ -6,7 +6,89 @@
 
 import { themes as prismThemes } from 'prism-react-renderer';
 
+// 2026-01-31 Saturday 13:11:26.Add timestamp to footer
+const getDeploymentTimestamp = () => {
+    const now = new Date();
+    const date = now.toISOString().split('T')[0]; // 2025-09-13
+    const time = now.toISOString().split('T')[1].split('.')[0]; // 23:45:32
+    const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
+    return `${date} ${time} UTC`;
+};
+
+
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+
+// 2026-01-31 Saturday 12:27:16.I am commenting out this next block hoping to find a simple replacement.
+// -----------------------------
+
+// // 2026-01-30 Friday 13:09:29.  Try this switch for GH Pages vs. DreamHost --
+// // I also modified the config inside 'const config' below.
+// // 2026-01-31 Saturday 12:05:34.This is replaced.
+// // const isGhPages = process.env.GITHUB_PAGES === 'true';
+
+// /** @type {const} */
+// const DEPLOY_TARGETS = ['local', 'gh', 'dreamhost'];
+
+// // const deployTarget = process.env.DEPLOY_TARGET ?? 'local';
+// // change this ^ to:
+
+// /** @type {typeof DEPLOY_TARGETS[number]} */
+// const deployTarget =
+//     DEPLOY_TARGETS.includes(process.env.DEPLOY_TARGET)
+//         ? process.env.DEPLOY_TARGET
+//         : 'local';
+
+
+// const siteConfig = {
+//     local: {
+//         url: 'http://localhost',
+//         baseUrl: '/',
+//     },
+//     gh: {
+//         url: 'https://johnmhoran.github.io',
+//         baseUrl: '/408pinetrail.com/',
+//     },
+//     dreamhost: {
+//         url: 'https://www.408pinetrail.com',
+//         baseUrl: '/',
+//     },
+// };
+
+// if (!siteConfig[deployTarget]) {
+//     throw new Error(`Unknown DEPLOY_TARGET: ${deployTarget}`);
+// }
+
+// -------------------------------
+
+// 2026-01-31 Saturday 12:29:02.Try this:
+// ---
+// Deployment target: local | gh | dreamhost
+/** @type {'local' | 'gh' | 'dreamhost'} */
+let deployTarget = 'local';
+
+if (process.env.DEPLOY_TARGET === 'gh') {
+    deployTarget = 'gh';
+} else if (process.env.DEPLOY_TARGET === 'dreamhost') {
+    deployTarget = 'dreamhost';
+}
+
+const siteConfig = {
+    local: {
+        url: 'http://localhost',
+        baseUrl: '/',
+    },
+    gh: {
+        url: 'https://johnmhoran.github.io',
+        baseUrl: '/408pinetrail.com/',
+    },
+    dreamhost: {
+        url: 'https://www.408pinetrail.com',
+        baseUrl: '/',
+    },
+};
+
+// ---
+
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -35,19 +117,29 @@ const config = {
     // projectName: 'docusaurus', // Usually your repo name.
 
     // ======================================================================
-    // GH Pages deployment:
-    url: 'https://johnmhoran.github.io',
-    baseUrl: '/408pinetrail.com/',
-    trailingSlash: false,
-
-    // DreamHost deployment:
-    // url: "https://www.408pinetrail.com",
-    // baseUrl: "/",
+    // // GH Pages deployment:
+    // url: 'https://johnmhoran.github.io',
+    // baseUrl: '/408pinetrail.com/',
     // trailingSlash: false,
 
+    // // DreamHost deployment:
+    // // url: "https://www.408pinetrail.com",
+    // // baseUrl: "/",
+    // // trailingSlash: false,
+
+    // 2026-01-30 Friday 13:10:42.Replace above with the const I just set at the top.
+    // 2026-01-31 Saturday 12:09:24.Replaced.
+    // baseUrl: isGhPages ? '/408pinetrail.com/' : '/',
+
     // For GitHub pages deployment:
-    // organizationName: 'aboutcode-org',
-    // projectName: 'www.aboutcode.org',
+    // organizationName: 'johnmhoran',
+    // projectName: '408pinetrail.com',
+
+    url: siteConfig[deployTarget].url,
+    baseUrl: siteConfig[deployTarget].baseUrl,
+    trailingSlash: false,
+
+
     // ======================================================================
 
     onBrokenLinks: 'throw',
@@ -186,7 +278,7 @@ const config = {
                 //     { label: 'Privacy Policy', to: '/privacy' },
                 //     { label: 'Terms of Service', to: '/terms' },
                 // ],
-                copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus.`,
+                copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus. <br />Last deployed: ${getDeploymentTimestamp()}`,
             },
             prism: {
                 theme: prismThemes.github,
