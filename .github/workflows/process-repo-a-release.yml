@@ -5,8 +5,9 @@ on:
     types: [repo_a_release]
 
 permissions:
-  contents: write
+  contents: write  # needed to commit updates to releases.json
 
+# Ensure multiple release events don't conflict
 concurrency:
   group: release-update
   cancel-in-progress: false
@@ -16,21 +17,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout Repo B
       - name: Checkout Repo B
         uses: actions/checkout@v4
 
-      - name: Set tag variable
-        run: echo "TAG=${{ github.event.client_payload.tag }}" >> $GITHUB_ENV
+      # 2️⃣ Capture the tag and repo name from the dispatch payload
+      - name: Set variables from payload
+        run: |
+          echo "TAG=${{ github.event.client_payload.tag }}" >> $GITHUB_ENV
+          echo "REPO_NAME=${{ github.event.client_payload.repo_name }}" >> $GITHUB_ENV
 
-      - name: Fetch release from Repo A
+      # 3️⃣ Fetch the release info from Repo A (or any triggering repo)
+      - name: Fetch release from triggering repo
         env:
           TAG: ${{ env.TAG }}
+          REPO_NAME: ${{ env.REPO_NAME }}
         run: |
           curl -s \
             -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/johnmhoran/docusaurus-sandbox-2026-01-15/releases/tags/$TAG \
+            https://api.github.com/repos/johnmhoran/${REPO_NAME}/releases/tags/$TAG \
             -o release.json
 
+      # 4️⃣ Update static/releases.json (creates/updates entry per repo)
       - name: Update releases.json
         run: |
           mkdir -p static
@@ -46,13 +54,14 @@ jobs:
           PRERELEASE=$(jq -r '.prerelease' release.json)
 
           jq \
+            --arg repo "$REPO_NAME" \
             --arg tag "$TAG" \
             --arg name "$NAME" \
             --arg url "$URL" \
             --arg published "$PUBLISHED" \
             --argjson prerelease "$PRERELEASE" \
             '
-            .["repo-a"] = {
+            .[$repo] = {
               tag: $tag,
               name: $name,
               url: $url,
@@ -64,16 +73,26 @@ jobs:
 
           mv tmp.json static/releases.json
 
+      # 5️⃣ Commit & push if changed
       - name: Commit if changed
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-
           git add static/releases.json
 
           if git diff --cached --quiet; then
             echo "No changes."
           else
-            git commit -m "Update latest release for repo-a"
+            git commit -m "Update latest release for $REPO_NAME"
             git push
-          fi
+
+      # 6️⃣ Trigger the Pages / Docusaurus build workflow via REST API
+      - name: Trigger Docusaurus deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            https://api.github.com/repos/johnmhoran/408pinetrail.com/actions/workflows/A-B-deployment-candidate-2026-01-31.yml/dispatches \
+            -d '{"ref":"main","inputs":{"target":"gh"}}'
