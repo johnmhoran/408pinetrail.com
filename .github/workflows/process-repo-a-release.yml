@@ -45,10 +45,10 @@ jobs:
       # 4️⃣ Update static/releases.json (creates/updates entry per repo)
       - name: Update releases.json
         run: |
-          mkdir -p static
+          mkdir -p website/static
 
-          if [ ! -f static/releases.json ]; then
-            echo "{}" > static/releases.json
+          if [ ! -f website/static/releases.json ]; then
+            echo "{}" > website/static/releases.json
           fi
 
           TAG=$(jq -r '.tag_name' release.json)
@@ -73,16 +73,16 @@ jobs:
               prerelease: $prerelease
             }
             ' \
-            static/releases.json > tmp.json
+            website/static/releases.json > tmp.json
 
-          mv tmp.json static/releases.json
+          mv tmp.json website/static/releases.json
 
       # 5️⃣ Commit & push if changed
       - name: Commit if changed
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add static/releases.json
+          git add website/static/releases.json
 
           if git diff --cached --quiet; then
             echo "No changes."
