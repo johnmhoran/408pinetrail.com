@@ -1,0 +1,21 @@
+export const Highlight = ({children, color}) => (
+  <span
+    style={{
+      backgroundColor: color,
+      borderRadius: '2px',
+      color: '#fff',
+      padding: '0.2rem',
+    }}>
+    {children}
+  </span>
+);
+
+This `intro.mdx` (based on <a href="https://docusaurus.io/docs/markdown-features/react#exporting-components" target="_blank">the Docusaurus documentation</a>) is a simple .mdx test file to begin exploring its capabilities and requirements.  For example, using the `export` function, we can display
+<ul>
+<li>
+<Highlight color="#ffcccc">a pale red</Highlight> and
+</li>
+<li> <Highlight color="#0066ff">a bright blue</Highlight>.</li>
+</ul>
+
+And inside this .mdx one can also include good old-fashioned **Markdown**.

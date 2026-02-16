@@ -1,0 +1,79 @@
+name: Process Repo A Release
+
+on:
+  repository_dispatch:
+    types: [repo_a_release]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-update
+  cancel-in-progress: false
+
+jobs:
+  process-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v4
+
+      - name: Set tag variable
+        run: echo "TAG=${{ github.event.client_payload.tag }}" >> $GITHUB_ENV
+
+      - name: Fetch release from Repo A
+        env:
+          TAG: ${{ env.TAG }}
+        run: |
+          curl -s \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/johnmhoran/docusaurus-sandbox-2026-01-15/releases/tags/$TAG \
+            -o release.json
+
+      - name: Update releases.json
+        run: |
+          mkdir -p static
+
+          if [ ! -f static/releases.json ]; then
+            echo "{}" > static/releases.json
+          fi
+
+          TAG=$(jq -r '.tag_name' release.json)
+          NAME=$(jq -r '.name' release.json)
+          URL=$(jq -r '.html_url' release.json)
+          PUBLISHED=$(jq -r '.published_at' release.json)
+          PRERELEASE=$(jq -r '.prerelease' release.json)
+
+          jq \
+            --arg tag "$TAG" \
+            --arg name "$NAME" \
+            --arg url "$URL" \
+            --arg published "$PUBLISHED" \
+            --argjson prerelease "$PRERELEASE" \
+            '
+            .["repo-a"] = {
+              tag: $tag,
+              name: $name,
+              url: $url,
+              published_at: $published,
+              prerelease: $prerelease
+            }
+            ' \
+            static/releases.json > tmp.json
+
+          mv tmp.json static/releases.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add static/releases.json
+
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Update latest release for repo-a"
+            git push
+          fi

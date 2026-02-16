@@ -216,4 +216,33 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  background-color: #ffcc00;
+}
+
+
+/* 2026-02-13 Friday 19:02:14.  https://grok.com/c/560b73aa-c691-458d-9c79-940b93fce010?rid=b4a537a0-23dc-4315-a95b-ec5b99043cf5 */
+.mainContent {
+  padding: 2rem 1rem;
+  max-width: var(--ifm-container-width);
+  /* max-width: 1400px; */
+  /* background-color: #eeeecc; */
+  margin: 0 auto;
+}
+
+.sectionContainer {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: var(--ifm-background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sectionHeader h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
 }

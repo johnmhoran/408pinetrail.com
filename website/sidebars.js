@@ -18,6 +18,7 @@ const sidebars = {
 
     about: [
         'about/about-news',
+        'about/about-latest-releases',
     ],
 };
 

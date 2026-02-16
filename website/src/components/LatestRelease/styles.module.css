@@ -1,0 +1,97 @@
+.mainContent {
+  padding: 2rem 1rem;
+  max-width: var(--ifm-container-width);
+  /* max-width: 1400px; */
+  /* background-color: #ffff33; */
+  margin: 0 auto;
+}
+
+.sectionContainer {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: var(--ifm-background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.sectionHeader h1 {
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
+}
+
+.twoColumn {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 996px) {
+  .twoColumn {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  background: var(--ifm-card-background-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.card {
+  background: var(--ifm-hero-background-color);
+  /* padding: 1.25rem; */
+  border-radius: 8px;
+  /* border-left: 4px solid var(--ifm-color-primary); */
+}
+
+.releaseCard {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid var(--ifm-color-primary-light);
+  text-align: center;
+}
+
+.releaseBadge {
+  background: var(--ifm-color-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-weight: bold;
+  margin-left: 0.75rem;
+}
+
+.releaseDate {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.95rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.releaseBody {
+  text-align: left;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.releaseButton {
+  display: inline-block;
+  background: var(--ifm-color-primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.releaseButton:hover {
+  background: var(--ifm-color-primary-dark);
+}

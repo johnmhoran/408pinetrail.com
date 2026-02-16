@@ -1,0 +1,27 @@
+---
+title: Documentation Home
+---
+
+import LatestReleaseWidget from '@site/src/components/LatestRelease/index.js';
+import releaseData from '@site/src/data/releaseData.json';
+
+# Welcome to the Docs
+
+Here is our most recent update:
+
+{/* Use ONLY ONE of these based on your JSON structure */}
+<LatestReleaseWidget release={Array.isArray(releaseData) ? releaseData[0] : releaseData} />
+
+Regular markdown continues here...
+
+DEBUG: {typeof LatestReleaseWidget}
+
+---
+
+
+
+{/* // import LatestReleaseWidget from '@site/src/components/LatestRelease/index.js'; */}
+
+# Test
+
+<LatestReleaseWidget release={{ version: "1.0", published_at: "2026-01-01", body: "test" }} />

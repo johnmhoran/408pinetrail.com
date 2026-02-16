@@ -1,0 +1,6 @@
+{
+  "version": "2.4.0",
+  "published_at": "2026-02-10T14:30:00Z",
+  "html_url": "https://github.com/your-org/your-repo/releases/tag/v2.4.0",
+  "body": "This update introduces a new dashboard layout and fixes the navigation bug on mobile devices.\n\n### Changes\n- Added support for dark mode toggling.\n- Optimized image loading speeds by 40%.\n- Fixed a critical crash in the settings menu."
+}

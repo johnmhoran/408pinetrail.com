@@ -6,6 +6,13 @@
 
 import { themes as prismThemes } from 'prism-react-renderer';
 
+// 2026-02-15 Sunday 11:08:44.
+const path = require('path');
+// process.cwd() is /your-project/website
+// path.join(..., '..') moves it to /your-project
+const actualRootPath = path.join(process.cwd(), '..');
+const projectFolderName = path.basename(actualRootPath);
+
 // 2026-01-31 Saturday 13:11:26.Add timestamp to footer
 const getDeploymentTimestamp = () => {
     const now = new Date();
@@ -14,7 +21,6 @@ const getDeploymentTimestamp = () => {
     const weekday = now.toLocaleDateString('en-US', { weekday: 'long' });
     return `${date} ${time} UTC`;
 };
-
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -37,7 +43,6 @@ const getDeploymentTimestamp = () => {
 //     DEPLOY_TARGETS.includes(process.env.DEPLOY_TARGET)
 //         ? process.env.DEPLOY_TARGET
 //         : 'local';
-
 
 // const siteConfig = {
 //     local: {
@@ -89,12 +94,20 @@ const siteConfig = {
 
 // ---
 
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: '408pinetrail.com',
     tagline: '[Tagline . . . ?]',
-    favicon: "img/favicon-test.ico",
+    favicon: 'img/favicon-test.ico',
+
+    // 2026-02-14 Saturday 11:03:21.custom field to ID project in footer
+    customFields: {
+        projectPath: process.cwd(), // full build-time path
+        projectName: '408pinetrail.com', // or whatever label helps you
+    },
+
+    // 2026-02-14 Saturday 17:00:50.plugin to handle releases from other GH repos
+    plugins: [require.resolve('./src/plugins/github-releases')],
 
     markdown: {
         format: 'detect', // Auto-detects: .md = plain Markdown (CommonMark), .mdx = MDX
@@ -138,7 +151,6 @@ const config = {
     url: siteConfig[deployTarget].url,
     baseUrl: siteConfig[deployTarget].baseUrl,
     trailingSlash: false,
-
 
     // ======================================================================
 
@@ -205,6 +217,13 @@ const config = {
                 style: 'dark',
                 items: [
                     { to: '/', label: 'Home', position: 'left', exact: true },
+
+                    {
+                        to: '/releases',
+                        label: 'Releases',
+                        position: 'left',
+                    },
+
                     // {
                     //     type: 'docSidebar',
                     //     sidebarId: 'scancode',
@@ -278,7 +297,17 @@ const config = {
                 //     { label: 'Privacy Policy', to: '/privacy' },
                 //     { label: 'Terms of Service', to: '/terms' },
                 // ],
-                copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus. <br />Last deployed: ${getDeploymentTimestamp()}`,
+
+                // copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus. <br />Last deployed: ${getDeploymentTimestamp()}`,
+
+                // copyright: `Project: ${process.env.PROJECT_NAME || 'Default'} | Built on ${new Date().toLocaleDateString()}`,
+
+                // copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus. <br />Last deployed: ${getDeploymentTimestamp()} <br /><span style="color: #00ff00;">${process.cwd()} <br />Project: ${process.env.PROJECT_NAME || 'Default'} | Built on ${new Date().toLocaleDateString()}</span> <br /><span style="color: #80ffff;">${projectFolderName}</span>`,
+                // Build path: ${process.cwd()}
+
+                // copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus. <br />Last deployed: ${getDeploymentTimestamp()} | <span style="color: #ff9999;">${projectFolderName}</span>`,
+
+                copyright: `Copyright John M. Horan. &nbsp; All rights reserved. &nbsp; Built with Docusaurus. <br />Last deployed: ${getDeploymentTimestamp()} | <span style="background-color: #ffffff; padding: 0px 5px; border-radius: 5px; color: #000000;">${projectFolderName}</span>`,
             },
             prism: {
                 theme: prismThemes.github,

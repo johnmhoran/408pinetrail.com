@@ -9,7 +9,7 @@ export default function HomepageHeader() {
           Welcome to 408PineTrail.com.
         </h1>
         <p className={styles.heroSubtitle}>
-          Duners rock!
+          A simple code sandbox.
         </p>
       </div>
     </div>

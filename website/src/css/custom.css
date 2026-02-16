@@ -111,3 +111,27 @@
     margin-bottom: 1rem;
     font-size: 14px;
 }
+
+/* 2026-02-14 Saturday 13:31:09. */
+/* Increase readability and consistency — pick one approach */
+
+/* :root {
+  --ifm-container-width-xl: 1400px;
+} */
+
+
+/* Ensure navbar, footer, announcement bar, etc. also respect the width (common complaint) */
+/* .navbar__inner, */
+/* .footer__inner, */
+/* .docusaurus-mt-lg, */
+/* main .container {
+  max-width: var(--ifm-container-width-xl) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+} */
+
+/* Optional: Make homepage sections feel contained */
+/* main .container {
+  padding-left: 1rem;
+  padding-right: 1rem;
+} */
