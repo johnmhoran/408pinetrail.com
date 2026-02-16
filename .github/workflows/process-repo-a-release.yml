@@ -7,7 +7,7 @@ on:
 permissions:
   contents: write  # needed to commit updates to releases.json
 
-# Ensure multiple release events don't conflict
+# Ensure multiple release events don't conflict -- prevent race conditions
 concurrency:
   group: release-update
   cancel-in-progress: false
@@ -21,11 +21,15 @@ jobs:
       - name: Checkout Repo B
         uses: actions/checkout@v4
 
-      # 2️⃣ Capture the tag and repo name from the dispatch payload
+      # 2️⃣ Set TAG and REPO_NAME with fallback
       - name: Set variables from payload
         run: |
           echo "TAG=${{ github.event.client_payload.tag }}" >> $GITHUB_ENV
-          echo "REPO_NAME=${{ github.event.client_payload.repo_name }}" >> $GITHUB_ENV
+          REPO_NAME="${{ github.event.client_payload.repo_name }}"
+          if [ -z "$REPO_NAME" ]; then
+            REPO_NAME="unknown-repo"
+          fi
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
       # 3️⃣ Fetch the release info from Repo A (or any triggering repo)
       - name: Fetch release from triggering repo
