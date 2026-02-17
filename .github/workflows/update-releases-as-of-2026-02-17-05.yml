@@ -1,12 +1,13 @@
 name: Update Releases Feed
 
+# Trigger manually or on a schedule
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 * * * *"   # every hour at :15
+    - cron: "15 * * * *"  # every hour at :15
 
 permissions:
-  contents: write
+  contents: write  # needed to update data/releases.json
 
 jobs:
   update:
@@ -15,43 +16,45 @@ jobs:
     strategy:
       matrix:
         repo:
-          - johnmhoran/release-test-01
           - johnmhoran/docusaurus-sandbox-2026-01-15
+          - johnmhoran/release-test-01
 
     steps:
+      # 1️⃣ Checkout Repo B
       - name: Checkout Repo B
         uses: actions/checkout@v4
 
+      # 2️⃣ Debug: show which repo we are processing
       - name: Debug - show repo
-        run: echo "Fetching latest release for repo: $REPO"
+        run: echo "Fetching latest release for repo: ${{ matrix.repo }}"
+
+      # 3️⃣ Fetch latest release from GitHub API
+      - name: Fetch latest release
         env:
-          REPO: ${{ matrix.repo }}
-
-      - name: Fetch latest release JSON
-        env:
-          REPO: ${{ matrix.repo }}
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # see below for setup
         run: |
-          set -e
-          curl -s \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: token $GH_PAT" \
-            https://api.github.com/repos/$REPO/releases/latest \
-            -o release.json
+          REPO="${{ matrix.repo }}"
+          echo "Fetching latest release for $REPO"
+          curl -s -H "Authorization: token $GITHUB_TOKEN" \
+               -H "Accept: application/vnd.github+json" \
+               "https://api.github.com/repos/$REPO/releases/latest" \
+               -o release.json || echo "{}" > release.json
 
-          echo "Contents of release.json:"
-          cat release.json
-
-      - name: Prepare releases.json
+      # 4️⃣ Ensure data folder and releases.json exist
+      - name: Ensure data/releases.json
         run: |
-          TMP=$(mktemp)
           mkdir -p data
-          # initialize if missing
           if [ ! -f data/releases.json ]; then
-            echo '{"generated_at": "", "releases":[]}' > data/releases.json
+            echo "[]" > data/releases.json
           fi
 
-          # append / update this repo's latest release
+      # 5️⃣ Update releases.json
+      - name: Update releases.json
+        run: |
+          TMP=$(mktemp)
+
+          REPO="${{ matrix.repo }}"
+
           jq \
             --arg repo "$REPO" \
             --slurpfile existing data/releases.json \
@@ -60,24 +63,29 @@ jobs:
             | map(select(.repo != $repo))
             +
             [
-              {
+              (input | {
                 repo: $repo,
                 repo_url: ("https://github.com/" + $repo),
-                tag: .tag_name,
-                tag_url: .html_url,
-                published_at: .published_at,
-                releases_page_url: ("https://github.com/" + $repo + "/releases"),
-                compare_url: ("https://github.com/" + $repo + "/compare/" + .tag_name + "...main"),
-                prerelease: .prerelease
-              }
+                release_id: .id // 0,
+                tag_name: .tag_name // "",
+                name: .name // "",
+                created_at: .created_at // "",
+                published_at: .published_at // "",
+                draft: .draft // false,
+                prerelease: .prerelease // false,
+                target_commitish: .target_commitish // "",
+                html_url: .html_url // "",
+                tarball_url: .tarball_url // "",
+                zipball_url: .zipball_url // ""
+              })
             ]
             | sort_by(.published_at) | reverse
-            | {generated_at: now | todateiso8601, releases: .}
             ' release.json > "$TMP"
 
           mv "$TMP" data/releases.json
           rm release.json
 
+      # 6️⃣ Commit and push if changed
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions"
