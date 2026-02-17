@@ -34,13 +34,25 @@ jobs:
 
       # 3️⃣ Fetch latest release JSON
       - name: Fetch latest release
-        env:
-          REPO: ${{ matrix.repo }}
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          curl -s -H "Accept: application/vnd.github+json" \
+          REPO="cli/cli"
+          echo "Fetching latest release for repo: $REPO"
+
+          curl -s \
+            -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/$REPO/releases/latest \
-            -o release.json || echo '{}' > release.json
+            -o release.json
+
+          echo "----- RAW JSON -----"
+          cat release.json
+          echo "--------------------"
+
+          TAG=$(jq -r '.tag_name' release.json)
+          DATE=$(jq -r '.published_at' release.json)
+
+          echo "Latest tag: $TAG"
+          echo "Published at: $DATE"
+
 
       # 4️⃣ Update releases.json
       - name: Update releases.json
