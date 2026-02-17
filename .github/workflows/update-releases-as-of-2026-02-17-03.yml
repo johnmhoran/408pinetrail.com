@@ -96,9 +96,17 @@ jobs:
                 ),
 
                 body: (
-                  (.body // "" | tostring | gsub("\r"; ""))
-                  | if length > 1500 then .[0:1497] + "..." else . end
-                ),
+                  # fallback to empty string if null
+                  (.body // "")
+                  # remove carriage returns
+                  | gsub("\\r"; "")
+                  # replace newlines with spaces
+                  | gsub("\\n"; " ")
+                  # escape any remaining control characters
+                  | gsub("[\\x00-\\x1F]"; "")
+                  # truncate to 1500 chars max
+                  | .[0:1500]
+                )
 
                 assets: (
                   if (.assets | length) > 0 then
