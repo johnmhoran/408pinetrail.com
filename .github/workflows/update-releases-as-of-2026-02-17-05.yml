@@ -1,0 +1,90 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *"   # every hour at :15
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo:
+          - johnmhoran/release-test-01
+          - johnmhoran/docusaurus-sandbox-2026-01-15
+
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v4
+
+      - name: Debug - show repo
+        run: echo "Fetching latest release for repo: $REPO"
+        env:
+          REPO: ${{ matrix.repo }}
+
+      - name: Fetch latest release JSON
+        env:
+          REPO: ${{ matrix.repo }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          set -e
+          curl -s \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: token $GH_PAT" \
+            https://api.github.com/repos/$REPO/releases/latest \
+            -o release.json
+
+          echo "Contents of release.json:"
+          cat release.json
+
+      - name: Prepare releases.json
+        run: |
+          TMP=$(mktemp)
+          mkdir -p data
+          # initialize if missing
+          if [ ! -f data/releases.json ]; then
+            echo '{"generated_at": "", "releases":[]}' > data/releases.json
+          fi
+
+          # append / update this repo's latest release
+          jq \
+            --arg repo "$REPO" \
+            --slurpfile existing data/releases.json \
+            '
+            $existing[0]
+            | map(select(.repo != $repo))
+            +
+            [
+              {
+                repo: $repo,
+                repo_url: ("https://github.com/" + $repo),
+                tag: .tag_name,
+                tag_url: .html_url,
+                published_at: .published_at,
+                releases_page_url: ("https://github.com/" + $repo + "/releases"),
+                compare_url: ("https://github.com/" + $repo + "/compare/" + .tag_name + "...main"),
+                prerelease: .prerelease
+              }
+            ]
+            | sort_by(.published_at) | reverse
+            | {generated_at: now | todateiso8601, releases: .}
+            ' release.json > "$TMP"
+
+          mv "$TMP" data/releases.json
+          rm release.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/releases.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update latest releases"
+            git push
+          else
+            echo "No changes detected"
