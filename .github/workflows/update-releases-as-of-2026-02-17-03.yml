@@ -97,8 +97,8 @@ jobs:
                 ),
 
                 body: (
-                  .body // ""
-                  | gsub("\\r"; "")
+                  (.body // "")
+                  | tostring
                   | .[0:1500]
                 ),
 
