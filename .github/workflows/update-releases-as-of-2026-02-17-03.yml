@@ -107,21 +107,6 @@ jobs:
                   # truncate to 1500 chars max
                   | .[0:1500]
                 )
-
-                assets: (
-                  if (.assets | length) > 0 then
-                    [
-                      .assets[] | {
-                        name: .name,
-                        content_type: .content_type,
-                        size: .size,
-                        download_count: .download_count,
-                        browser_download_url: .browser_download_url
-                      }
-                    ]
-                  else []
-                  end
-                )
               })
             ]
             | sort_by(.published_at) | reverse
