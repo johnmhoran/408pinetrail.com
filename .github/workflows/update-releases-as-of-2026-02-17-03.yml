@@ -3,7 +3,6 @@ name: Update Releases Feed
 on:
   workflow_dispatch:
   schedule:
-    # - cron: "15 * * * *"   # hourly at :15
     - cron: "*/5 * * * *"   # every 5 minutes -- for testing only
 
 permissions:
@@ -97,9 +96,8 @@ jobs:
                 ),
 
                 body: (
-                  (.body // "")
-                  | tostring
-                  | .[0:1500]
+                  (.body // "" | tostring | gsub("\r"; ""))
+                  | if length > 1500 then .[0:1497] + "..." else . end
                 ),
 
                 assets: (
