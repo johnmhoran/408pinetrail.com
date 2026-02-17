@@ -2,63 +2,127 @@ import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
 import styles from './releases.module.css';
 
-// 2026-02-15 Sunday 19:21:13.  Fix the baseUrl issue
-import useBaseUrl from '@docusaurus/useBaseUrl';
-
-export default function Releases() {
+export default function ReleasesPage() {
     const [data, setData] = useState(null);
 
-    //   useEffect(() => {
-    //     fetch('/releases.json')
-    //       .then(res => res.json())
-    //       .then(setData);
-    //   }, []);
-
-    //   2026-02-15 Sunday 19:23:27.
-    const releasesUrl = useBaseUrl('/releases.json');
-
     useEffect(() => {
-        fetch(releasesUrl)
+        fetch('/releases.json')
             .then((res) => res.json())
-            .then(setData);
-    }, [releasesUrl]);
+            .then((json) => {
+                // Ensure newest-first sort
+                json.releases.sort(
+                    (a, b) =>
+                        new Date(b.published_at) - new Date(a.published_at),
+                );
+                setData(json);
+            });
+    }, []);
 
-    if (!data)
+    if (!data) {
         return (
-            <Layout>
-                <p>Loading releases...</p>
+            <Layout title='Releases'>
+                <div className='container margin-vert--lg'>
+                    <p>Loading releases...</p>
+                </div>
             </Layout>
         );
+    }
 
-    // Sort newest first
-    const repos = Object.entries(data).sort(
-        (a, b) => new Date(b[1].published_at) - new Date(a[1].published_at),
-    );
+    const formatUTC = (isoString) => {
+        const d = new Date(isoString);
+        return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(
+            2,
+            '0',
+        )}-${String(d.getUTCDate()).padStart(2, '0')} ${String(
+            d.getUTCHours(),
+        ).padStart(2, '0')}:${String(d.getUTCMinutes()).padStart(2, '0')} UTC`;
+    };
+
+    const truncate = (text, max = 160) =>
+        text && text.length > max ? text.slice(0, max) + '…' : text;
 
     return (
-        <Layout title='Latest Releases'>
-            <div className={styles.container}>
-                <h1>Latest Releases</h1>
+        <Layout title='Releases'>
+            <div className={`container margin-vert--lg ${styles.container}`}>
+                <h1>Repository Releases</h1>
 
-                {repos.map(([repo, info]) => (
-                    <div key={repo} className={styles.card}>
-                        <div className={styles.header}>
-                            <h2>{repo}</h2>
-                            {info.prerelease && (
-                                <span className={styles.badge}>Prerelease</span>
-                            )}
-                        </div>
+                <div className={styles.generated}>
+                    Generated: {formatUTC(data.generated_at)}
+                </div>
 
-                        <a href={info.url} className={styles.tag}>
-                            {info.tag}
-                        </a>
+                <table className={styles.table}>
+                    <thead>
+                        <tr>
+                            <th className={styles.th}>Repository</th>
+                            <th className={styles.th}>Tag</th>
+                            <th className={styles.th}>Published (UTC)</th>
+                            {/* <th className={styles.th}>Notes</th> */}
+                            <th
+                                className={`${styles.th} ${styles.notesColumn}`}
+                            >
+                                Notes
+                            </th>
+                            <th className={styles.th}>Commits Since</th>
+                            <th className={styles.th}>Links</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.releases.map((release, index) => (
+                            <tr key={index}>
+                                <td className={`${styles.td} ${styles.repo}`}>
+                                    <a
+                                        href={release.repo_url}
+                                        target='_blank'
+                                        rel='noreferrer'
+                                    >
+                                        {release.repo}
+                                    </a>
+                                </td>
 
-                        <p className={styles.date}>
-                            Published:{' '}
-                            {new Date(info.published_at).toLocaleDateString()}
-                        </p>
-                    </div>
-                ))}
+                                <td className={`${styles.td} ${styles.tag}`}>
+                                    <a
+                                        href={release.tag_url}
+                                        target='_blank'
+                                        rel='noreferrer'
+                                    >
+                                        {release.tag}
+                                    </a>
+                                </td>
+
+                                <td className={styles.td}>
+                                    {formatUTC(release.published_at)}
+                                </td>
+
+                                {/* <td className={styles.td}> */}
+                                <td className={`${styles.td} ${styles.notesColumn}`}>
+                                    <span className={styles.body}>
+                                        {truncate(release.body)}
+                                    </span>
+                                </td>
+
+                                <td className={styles.td}>
+                                    <a
+                                        href={release.compare_url}
+                                        target='_blank'
+                                        rel='noreferrer'
+                                    >
+                                        {release.commits_since}
+                                    </a>
+                                </td>
+
+                                <td className={`${styles.td} ${styles.links}`}>
+                                    <a
+                                        href={release.releases_page_url}
+                                        target='_blank'
+                                        rel='noreferrer'
+                                    >
+                                        Releases
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </Layout>
     );

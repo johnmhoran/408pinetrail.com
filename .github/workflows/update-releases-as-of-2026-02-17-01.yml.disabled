@@ -1,0 +1,122 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *"   # every hour at :15
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo:
+          - org/repo-a
+          - org/repo-b   # add more repos here
+
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v4
+
+      - name: Ensure releases.json exists
+        run: |
+          mkdir -p website/static
+          if [ ! -f website/static/releases.json ]; then
+            echo '{"generated_at": "", "releases": []}' > website/static/releases.json
+          fi
+
+      - name: Fetch latest release
+        id: release
+        run: |
+          API="https://api.github.com/repos/${{ matrix.repo }}/releases/latest"
+          curl -s $API > release.json
+
+      - name: Extract release fields
+        id: extract
+        run: |
+          REPO="${{ matrix.repo }}"
+          OWNER=$(echo $REPO | cut -d/ -f1)
+          NAME=$(echo $REPO | cut -d/ -f2)
+
+          TAG=$(jq -r '.tag_name' release.json)
+          PUBLISHED=$(jq -r '.published_at' release.json)
+          TAG_URL=$(jq -r '.html_url' release.json)
+          BODY=$(jq -r '.body // ""' release.json)
+          PRERELEASE=$(jq -r '.prerelease' release.json)
+
+          REPO_URL="https://github.com/$REPO"
+          RELEASES_PAGE_URL="$REPO_URL/releases"
+          COMPARE_URL="$REPO_URL/compare/$TAG...main"
+
+          # Fetch commit count
+          COMPARE_API="https://api.github.com/repos/$REPO/compare/$TAG...main"
+          curl -s $COMPARE_API > compare.json
+          COMMITS=$(jq -r '.total_commits // 0' compare.json)
+
+          echo "repo=$NAME" >> $GITHUB_OUTPUT
+          echo "repo_url=$REPO_URL" >> $GITHUB_OUTPUT
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "published=$PUBLISHED" >> $GITHUB_OUTPUT
+          echo "tag_url=$TAG_URL" >> $GITHUB_OUTPUT
+          echo "releases_page_url=$RELEASES_PAGE_URL" >> $GITHUB_OUTPUT
+          echo "compare_url=$COMPARE_URL" >> $GITHUB_OUTPUT
+          echo "commits=$COMMITS" >> $GITHUB_OUTPUT
+          echo "prerelease=$PRERELEASE" >> $GITHUB_OUTPUT
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Update releases.json
+        run: |
+          FILE="website/static/releases.json"
+
+          TMP=$(mktemp)
+
+          jq \
+            --arg repo "${{ steps.extract.outputs.repo }}" \
+            --arg repo_url "${{ steps.extract.outputs.repo_url }}" \
+            --arg tag "${{ steps.extract.outputs.tag }}" \
+            --arg tag_url "${{ steps.extract.outputs.tag_url }}" \
+            --arg published "${{ steps.extract.outputs.published }}" \
+            --arg releases_page_url "${{ steps.extract.outputs.releases_page_url }}" \
+            --arg compare_url "${{ steps.extract.outputs.compare_url }}" \
+            --arg body "${{ steps.extract.outputs.body }}" \
+            --argjson commits ${{ steps.extract.outputs.commits }} \
+            --argjson prerelease ${{ steps.extract.outputs.prerelease }} \
+            '
+            .releases |=
+              (
+                map(select(.repo != $repo or .tag != $tag))
+                + [{
+                  repo: $repo,
+                  repo_url: $repo_url,
+                  tag: $tag,
+                  tag_url: $tag_url,
+                  published_at: $published,
+                  releases_page_url: $releases_page_url,
+                  compare_url: $compare_url,
+                  commits_since: commits,
+                  prerelease: prerelease,
+                  body: $body
+                }]
+                | sort_by(.published_at) | reverse
+              )
+            | .generated_at = now | todateiso8601
+            ' $FILE > $TMP
+
+          mv $TMP $FILE
+
+      - name: Commit changes if any
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+
+          git add website/static/releases.json
+          git diff --quiet && echo "No changes" || (
+            git commit -m "Update releases feed"
+            git push
+          )

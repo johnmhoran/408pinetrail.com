@@ -1,0 +1,98 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *"   # hourly at :15
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo:
+          - org/repo-a
+          - org/repo-b
+          - yourname/test-repo-1
+          - yourname/test-repo-2
+
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v4
+
+      - name: Fetch latest release for ${{ matrix.repo }}
+        id: release
+        run: |
+          set -e
+
+          API="https://api.github.com/repos/${{ matrix.repo }}/releases/latest"
+
+          RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "$API")
+
+          TAG=$(echo "$RESPONSE" | jq -r '.tag_name // empty')
+          DATE=$(echo "$RESPONSE" | jq -r '.published_at // empty')
+          URL=$(echo "$RESPONSE" | jq -r '.html_url // empty')
+          NAME=$(echo "$RESPONSE" | jq -r '.name // empty')
+
+          if [ -z "$TAG" ]; then
+            echo "No release found for ${{ matrix.repo }}"
+            exit 0
+          fi
+
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+          echo "url=$URL" >> $GITHUB_OUTPUT
+          echo "name=$NAME" >> $GITHUB_OUTPUT
+
+      - name: Update releases.json
+        if: steps.release.outputs.tag != ''
+        run: |
+          set -e
+
+          mkdir -p data
+          touch data/releases.json
+
+          if [ ! -s data/releases.json ]; then
+            echo "[]" > data/releases.json
+          fi
+
+          TMP=$(mktemp)
+
+          jq \
+            --arg repo "${{ matrix.repo }}" \
+            --arg tag "${{ steps.release.outputs.tag }}" \
+            --arg date "${{ steps.release.outputs.date }}" \
+            --arg url "${{ steps.release.outputs.url }}" \
+            --arg name "${{ steps.release.outputs.name }}" \
+            '
+            map(select(.repo != $repo)) +
+            [{
+              repo: $repo,
+              tag: $tag,
+              date: $date,
+              url: $url,
+              name: $name
+            }]
+            | sort_by(.date) | reverse
+            ' \
+            data/releases.json > "$TMP"
+
+          mv "$TMP" data/releases.json
+
+      - name: Commit changes if any
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add data/releases.json
+          git commit -m "Update releases feed"
+          git push
