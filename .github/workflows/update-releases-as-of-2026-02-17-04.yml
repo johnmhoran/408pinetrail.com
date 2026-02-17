@@ -1,0 +1,95 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *"  # every hour at :15
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo:
+          - johnmhoran/docusaurus-sandbox-2026-01-15
+          - johnmhoran/release-test-01
+          - aboutcode-org/scancode.io
+          - aboutcode-org/vulnerablecode
+          # add more repos here
+
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v4
+
+      - name: Fetch latest release for ${{ matrix.repo }}
+        env:
+          REPO: ${{ matrix.repo }}
+        run: |
+          curl -s -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/$REPO/releases/latest \
+            -o release.json
+
+      - name: Update releases.json
+        run: |
+          TMP=$(mktemp)
+          jq \
+            --arg repo "$REPO" \
+            --slurpfile existing data/releases.json \
+            '
+            $existing[0]
+            | map(select(.repo != $repo))
+            +
+            [
+              (input | {
+                repo: $repo,
+                repo_url: ("https://github.com/" + $repo),
+
+                release_id: .id,
+                tag_name: .tag_name,
+                name: .name,
+
+                created_at: .created_at,
+                published_at: .published_at,
+
+                draft: .draft,
+                prerelease: .prerelease,
+                target_commitish: .target_commitish,
+
+                html_url: .html_url,
+                tarball_url: .tarball_url,
+                zipball_url: .zipball_url,
+
+                author: (
+                  if .author then
+                    {
+                      login: .author.login,
+                      html_url: .author.html_url,
+                      type: .author.type
+                    }
+                  else null
+                  end
+                )
+              })
+            ]
+            | sort_by(.published_at) | reverse
+            ' release.json > "$TMP"
+
+          mkdir -p data
+          mv "$TMP" data/releases.json
+          rm release.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/releases.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update latest releases"
+            git push
+          else
+            echo "No changes detected"
+          fi
