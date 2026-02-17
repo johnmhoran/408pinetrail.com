@@ -36,6 +36,12 @@ jobs:
       - name: Update releases.json
         run: |
           TMP=$(mktemp)
+
+          mkdir -p data
+          if [ ! -f data/releases.json ]; then
+            echo "[]" > data/releases.json
+          fi
+
           jq \
             --arg repo "$REPO" \
             --slurpfile existing data/releases.json \
