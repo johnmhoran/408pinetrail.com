@@ -29,7 +29,8 @@ jobs:
       - name: Debug - show repo
         env:
           REPO: ${{ matrix.repo }}
-        run: echo "Fetching latest release for repo: $REPO"
+        run: |
+          echo "Fetching latest release for repo: $REPO"
 
       # 3️⃣ Fetch latest release JSON
       - name: Fetch latest release
