@@ -1,13 +1,9 @@
-name: Update Releases Feed
+name: Update Releases
 
-# Run manually or on schedule
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 * * * *"   # every hour at :15
-
-permissions:
-  contents: write
+    - cron: "0 6 * * *"   # daily at 06:00 UTC
 
 jobs:
   update:
@@ -16,92 +12,56 @@ jobs:
     strategy:
       matrix:
         repo:
-          - johnmhoran/docusaurus-sandbox-2026-01-15
-          - johnmhoran/release-test-01
-          # add more repos here
+          - vercel/next.js
+          - facebook/react
 
     steps:
-      # 1️⃣ Checkout Repo B
-      - name: Checkout Repo B
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      # 2️⃣ Debug: show which repo is being processed
-      - name: Debug - show repo
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Fetch latest release
         env:
           REPO: ${{ matrix.repo }}
         run: |
           echo "Fetching latest release for repo: $REPO"
+          curl -s "https://api.github.com/repos/$REPO/releases/latest" -o release.json
+          echo "Release fetched:"
+          jq '.tag_name, .published_at' release.json
 
-      # 3️⃣ Fetch latest release JSON
-      - name: Fetch latest release
-        run: |
-          REPO="cli/cli"
-          echo "Fetching latest release for repo: $REPO"
-
-          curl -s \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/$REPO/releases/latest \
-            -o release.json
-
-          echo "----- RAW JSON -----"
-          cat release.json
-          echo "--------------------"
-
-          TAG=$(jq -r '.tag_name' release.json)
-          DATE=$(jq -r '.published_at' release.json)
-
-          echo "Latest tag: $TAG"
-          echo "Published at: $DATE"
-
-
-      # 4️⃣ Update releases.json
       - name: Update releases.json
         env:
           REPO: ${{ matrix.repo }}
         run: |
-          TMP=$(mktemp)
+          TAG=$(jq -r '.tag_name' release.json)
+          DATE=$(jq -r '.published_at' release.json)
+
+          echo "Tag: $TAG"
+          echo "Published: $DATE"
 
           mkdir -p data
+
           if [ ! -f data/releases.json ]; then
             echo "[]" > data/releases.json
           fi
 
+          TMP=$(mktemp)
+
           jq --arg repo "$REPO" \
-             --slurpfile existing data/releases.json \
-             '
-             $existing[0]
-             | map(select(.repo != $repo))
-             +
-             [
-               (input | {
-                 repo: $repo,
-                 repo_url: ("https://github.com/" + $repo),
-                 tag_name: .tag_name,
-                 tag_url: .html_url,
-                 published_at: .published_at,
-                 releases_page_url: ("https://github.com/" + $repo + "/releases"),
-                 compare_url: ("https://github.com/" + $repo + "/compare/" + (.tag_name // "") + "...main"),
-                 prerelease: .prerelease,
-                 created_at: .created_at,
-                 updated_at: .updated_at
-               })
-             ]
-             | sort_by(.published_at) | reverse
-             ' release.json > "$TMP"
+             --arg tag "$TAG" \
+             --arg date "$DATE" \
+             'map(select(.repo != $repo)) + [{repo: $repo, tag: $tag, published_at: $date}]' \
+             data/releases.json > "$TMP"
 
           mv "$TMP" data/releases.json
           rm release.json
 
-      # 5️⃣ Commit & push if changes
-      - name: Commit and push if changed
+      - name: Commit changes
         run: |
           git config user.name "github-actions"
-          git config user.email "actions@github.com"
-
+          git config user.email "github-actions@github.com"
           git add data/releases.json
-          if ! git diff --cached --quiet; then
-            git commit -m "Update latest releases"
-            git push
-          else
-            echo "No changes detected"
-          fi
+          git diff --cached --quiet || git commit -m "Update releases.json"
+          git push
