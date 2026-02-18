@@ -70,6 +70,12 @@ jobs:
             '}' \
             '] | sort_by(.published_at) | reverse' \
             > "$FILTER"
+          echo "=== FILTER CONTENTS ==="
+          cat "$FILTER"
+          echo "=== END FILTER ==="
+          echo "=== RELEASE.JSON CONTENTS ==="
+          cat release.json
+          echo "=== END RELEASE.JSON ==="
           jq --slurpfile existing website/static/releases.json \
             -f "$FILTER" release.json > "$TMP"
           mv "$TMP" website/static/releases.json
