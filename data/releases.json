@@ -1,7 +1,16 @@
-[
-  {
-    "repo": "vercel/next.js",
-    "tag": "v16.1.6",
-    "published_at": "2026-01-27T23:56:47Z"
-  }
-]
+{
+  "releases": [
+    {
+      "repo": "aboutcode-org/vulnerablecode",
+      "repo_url": "https://github.com/aboutcode-org/vulnerablecode",
+      "tag": null,
+      "tag_url": null,
+      "published_at": null,
+      "releases_page_url": "https://github.com/aboutcode-org/vulnerablecode/releases",
+      "compare_url": "https://github.com/aboutcode-org/vulnerablecode/compare/...main",
+      "commits_since": null,
+      "prerelease": null
+    }
+  ],
+  "generated_at": 1771375623.473185
+}
