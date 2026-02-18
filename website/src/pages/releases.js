@@ -6,7 +6,8 @@ export default function Releases() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch('/releases.json')
+    // fetch('/releases.json')
+    fetch('./releases.json')
       .then(res => res.json())
       .then(setData)
       .catch(() => setData([]));
@@ -17,7 +18,7 @@ export default function Releases() {
     (a, b) => new Date(b.published_at) - new Date(a.published_at)
   );
 
-  if (repos.length === 0) return <Layout><p>Loading releases...</p></Layout>;
+  if (repos.length === 0) return <Layout><p>Loading releases...??</p></Layout>;
 
   return (
     <Layout title="Latest Releases">
