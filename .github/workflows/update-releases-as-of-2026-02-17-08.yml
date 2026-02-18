@@ -51,18 +51,17 @@ jobs:
 
           jq --slurpfile existing website/static/releases.json '
             $existing[0] +
-            [
-              input | {
-                repo: .name // "",
+            [ input | {
+                repo: if .name==null then "" else .name end,
                 repo_url: ("https://github.com/" + env.REPO),
-                tag: .tag_name // "",
-                tag_url: .html_url // "",
-                published_at: .published_at // "",
+                tag: if .tag_name==null then "" else .tag_name end,
+                tag_url: if .html_url==null then "" else .html_url end,
+                published_at: if .published_at==null then "" else .published_at end,
                 releases_page_url: ("https://github.com/" + env.REPO + "/releases"),
-                compare_url: ("https://github.com/" + env.REPO + "/compare/" + (.tag_name // "") + "...main"),
+                compare_url: ("https://github.com/" + env.REPO + "/compare/" + (if .tag_name==null then "" else .tag_name end) + "...main"),
                 commits_since: 0,
                 prerelease: .prerelease,
-                author: (.author.login // ""),
+                author: (if .author==null then "" else .author.login end),
                 body: ""
               }
             ] | sort_by(.published_at) | reverse
