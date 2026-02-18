@@ -1,0 +1,90 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *" # every hour at :15
+
+permissions:
+  contents: write  # needed to commit updates to releases.json
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        repo:
+          - johnmhoran/release-test-01
+          - johnmhoran/docusaurus-sandbox-2026-01-15
+          # Add more repos here
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      # 1️⃣ Checkout the target repo (Repo B)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Debug: show which repo is being processed
+      - name: Debug - current repo
+        run: echo "Processing ${{ matrix.repo }}"
+
+      # 3️⃣ Fetch the latest release from the current source repo
+      - name: Fetch latest release
+        run: |
+          REPO=${{ matrix.repo }}
+          echo "Fetching latest release for $REPO"
+
+          # fetch release, fallback to empty JSON if none
+          curl -s -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/$REPO/releases/latest \
+            -o release.json || echo '{}' > release.json
+
+      # 4️⃣ Update releases.json in website/static cl
+      - name: Update releases.json
+              env:
+                REPO: ${{ matrix.repo }}
+                JQ_FILTER: |
+                  $existing[0] +
+                  [ input | {
+                    repo: if .name==null then "" else .name end,
+                    repo_url: "https://github.com/" + env.REPO,
+                    tag: if .tag_name==null then "" else .tag_name end,
+                    tag_url: if .html_url==null then "" else .html_url end,
+                    published_at: if .published_at==null then "" else .published_at end,
+                    releases_page_url: "https://github.com/" + env.REPO + "/releases",
+                    compare_url: "https://github.com/" + env.REPO + "/compare/" + (if .tag_name==null then "" else .tag_name end) + "...main",
+                    commits_since: 0,
+                    prerelease: .prerelease,
+                    author: (if .author==null then "" else .author.login end),
+                    body: ""
+                  }
+                  ] | sort_by(.published_at) | reverse
+              run: |
+                TMP=$(mktemp)
+                FILTER=$(mktemp --suffix=.jq)
+                mkdir -p website/static
+                if [ ! -f website/static/releases.json ]; then
+                  echo "[]" > website/static/releases.json
+                fi
+                printf '%s' "$JQ_FILTER" > "$FILTER"
+                jq --slurpfile existing website/static/releases.json \
+                  -f "$FILTER" release.json > "$TMP"
+                mv "$TMP" website/static/releases.json
+                rm -f release.json "$FILTER"
+              shell: bash
+
+      # 5️⃣ Commit & push changes if releases.json changed
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add website/static/releases.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update latest releases"
+            git push
+          else
+            echo "No changes detected"
+          fi
