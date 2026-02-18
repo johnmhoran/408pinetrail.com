@@ -1,0 +1,91 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *"  # Every hour at :15
+
+permissions:
+  contents: write
+
+jobs:
+  update-releases:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      # 1️⃣ Checkout Repo B
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2️⃣ Prepare data folder and releases.json
+      - name: Prepare releases.json
+        run: |
+          mkdir -p data
+          if [ ! -f data/releases.json ]; then
+            echo '{"generated_at": "", "releases": []}' > data/releases.json
+          fi
+
+      # 3️⃣ Loop over all source repos and fetch latest release
+      - name: Fetch latest releases
+        run: |
+          REPOS=(
+            "aboutcode-org/scancode.io"
+            "aboutcode-org/vulnerablecode"
+            # Add more repos here
+          )
+
+          TMP=$(mktemp)
+          echo '{"generated_at": "", "releases": []}' > "$TMP"
+
+          for REPO in "${REPOS[@]}"; do
+            echo "Fetching latest release for $REPO"
+
+            # Get latest release JSON, fallback to empty object if none
+            curl -s -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              "https://api.github.com/repos/$REPO/releases/latest" \
+              -o release.json || echo '{}' > release.json
+
+            # Skip if release not found
+            if grep -q '"message": "Not Found"' release.json; then
+              echo "No release found for $REPO, skipping."
+              continue
+            fi
+
+            # jq merge with existing releases
+            jq --slurpfile existing "$TMP" '
+              $existing[0]
+              | .releases += [
+                  {
+                    repo: .repo // $REPO,
+                    repo_url: ("https://github.com/" + $REPO),
+                    tag: .tag_name,
+                    tag_url: .html_url,
+                    published_at: .published_at,
+                    releases_page_url: ("https://github.com/" + $REPO + "/releases"),
+                    compare_url: ("https://github.com/" + $REPO + "/compare/" + .tag_name + "...main"),
+                    commits_since: null,
+                    prerelease: .prerelease
+                  }
+                ] | .generated_at = now | .
+            ' release.json > "$TMP"
+          done
+
+          mv "$TMP" data/releases.json
+          rm -f release.json
+
+      # 4️⃣ Commit and push if changed
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/releases.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update latest releases"
+            git push
+          else
+            echo "No changes detected"
+          fi
