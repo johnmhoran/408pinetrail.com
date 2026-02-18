@@ -56,17 +56,17 @@ jobs:
             fi
 
             # jq merge with existing releases
-            jq --slurpfile existing "$TMP" '
+            jq --arg repo "$REPO" --slurpfile existing "$TMP" '
               $existing[0]
               | .releases += [
                   {
-                    repo: .repo // $REPO,
-                    repo_url: ("https://github.com/" + $REPO),
+                    repo: $repo,
+                    repo_url: ("https://github.com/" + $repo),
                     tag: .tag_name,
                     tag_url: .html_url,
                     published_at: .published_at,
-                    releases_page_url: ("https://github.com/" + $REPO + "/releases"),
-                    compare_url: ("https://github.com/" + $REPO + "/compare/" + .tag_name + "...main"),
+                    releases_page_url: ("https://github.com/" + $repo + "/releases"),
+                    compare_url: ("https://github.com/" + $repo + "/compare/" + .tag_name + "...main"),
                     commits_since: null,
                     prerelease: .prerelease
                   }
