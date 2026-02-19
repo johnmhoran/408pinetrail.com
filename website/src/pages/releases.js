@@ -40,7 +40,8 @@ export default function Releases() {
                 </td>
                 <td>{info.tag}</td>
                 {/* <td>{new Date(info.published_at).toLocaleDateString()}</td> */}
-                <td>{new Date(info.published_at).toISOString().replace('T', ' ').replace('.000Z', ' UTC')}</td>
+                {/* <td>{new Date(info.published_at).toISOString().replace('T', ' ').replace('.000Z', ' UTC')}</td> */}
+                <td>{info.published_at ? new Date(info.published_at).toISOString().replace('T', ' ').replace('.000Z', ' UTC') : 'N/A'}</td>
                 <td>
                   <a href={info.releases_page_url} target='_blank' rel='noreferrer'>
                     Releases
