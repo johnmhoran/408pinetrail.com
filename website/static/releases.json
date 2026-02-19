@@ -1,26 +1,39 @@
 [
-    {
-      "repo": "alpha-repo",
-      "repo_url": "https://github.com/example/alpha-repo",
-      "tag": "v2.3.1",
-      "tag_url": "https://github.com/example/alpha-repo/releases/tag/v2.3.1",
-      "published_at": "2026-02-16T15:15:00Z",
-      "releases_page_url": "https://github.com/example/alpha-repo/releases",
-      "compare_url": "https://github.com/example/alpha-repo/compare/v2.3.1...main",
-      "commits_since": 282,
-      "prerelease": false,
-      "body": "This release improves performance of the validation engine, fixes issue #42, enhances schema handling, and updates dependencies. Several internal refactors were completed to improve maintainability."
-    },
-    {
-      "repo": "beta-repo",
-      "repo_url": "https://github.com/example/beta-repo",
-      "tag": "v1.0.0",
-      "tag_url": "https://github.com/example/beta-repo/releases/tag/v1.0.0",
-      "published_at": "2026-02-14T10:05:00Z",
-      "releases_page_url": "https://github.com/example/beta-repo/releases",
-      "compare_url": "https://github.com/example/beta-repo/compare/v1.0.0...main",
-      "commits_since": 41,
-      "prerelease": false,
-      "body": "Initial stable production release. Introduces core API functionality, documentation improvements, CI refinements, and packaging enhancements."
-    }
-  ]
+  {
+    "repo": "alpha-repo",
+    "repo_url": "https://github.com/example/alpha-repo",
+    "tag": "v2.3.1",
+    "tag_url": "https://github.com/example/alpha-repo/releases/tag/v2.3.1",
+    "published_at": "2026-02-16T15:15:00Z",
+    "releases_page_url": "https://github.com/example/alpha-repo/releases",
+    "compare_url": "https://github.com/example/alpha-repo/compare/v2.3.1...main",
+    "commits_since": 282,
+    "prerelease": false,
+    "body": "This release improves performance of the validation engine, fixes issue #42, enhances schema handling, and updates dependencies. Several internal refactors were completed to improve maintainability."
+  },
+  {
+    "repo": "Tag 0.1.6",
+    "repo_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15",
+    "tag": "0.1.6",
+    "tag_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/releases/tag/0.1.6",
+    "published_at": "2026-02-16T03:11:58Z",
+    "releases_page_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/releases",
+    "compare_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/compare/0.1.6...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran",
+    "body": ""
+  },
+  {
+    "repo": "beta-repo",
+    "repo_url": "https://github.com/example/beta-repo",
+    "tag": "v1.0.0",
+    "tag_url": "https://github.com/example/beta-repo/releases/tag/v1.0.0",
+    "published_at": "2026-02-14T10:05:00Z",
+    "releases_page_url": "https://github.com/example/beta-repo/releases",
+    "compare_url": "https://github.com/example/beta-repo/compare/v1.0.0...main",
+    "commits_since": 41,
+    "prerelease": false,
+    "body": "Initial stable production release. Introduces core API functionality, documentation improvements, CI refinements, and packaging enhancements."
+  }
+]
