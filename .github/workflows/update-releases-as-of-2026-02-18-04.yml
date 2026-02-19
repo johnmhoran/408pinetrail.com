@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      max-parallel: 1
       matrix:
         repo:
           - johnmhoran/release-test-01
@@ -92,7 +93,6 @@ jobs:
           git add website/static/releases.json
           if ! git diff --cached --quiet; then
             git commit -m "Update latest releases"
-            git pull --rebase origin main
             git push
           else
             echo "No changes detected"
