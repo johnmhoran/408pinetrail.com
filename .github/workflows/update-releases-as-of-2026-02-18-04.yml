@@ -72,7 +72,7 @@ jobs:
             '  author: (if .author==null then "" else .author.login end),' \
             '  body: (if .body==null then "" else .body end)' \
             '}' \
-            '] | unique_by(.repo_url) | sort_by(.published_at) | reverse' \
+            '] | sort_by(.published_at) | reverse | unique_by(.repo_url) | sort_by(.published_at) | reverse' \
             > "$FILTER"
           jq -n \
             --slurpfile existing website/static/releases.json \
