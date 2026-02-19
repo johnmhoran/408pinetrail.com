@@ -79,8 +79,7 @@
     "compare_url": "https://github.com/aboutcode-org/fetchcode/compare/v0.8.0...main",
     "commits_since": 0,
     "prerelease": false,
-    "author": "github-actions[bot]",
-    "body": "## What's Changed\n* Add support for Python 3.13 and 3.14 by @tdruez in https://github.com/aboutcode-org/fetchcode/pull/184\n* Refactor Pypi fetcher class for re-usability by @tdruez in https://github.com/aboutcode-org/fetchcode/pull/185\n* Add a GitHub workflow to run unit tests by @tdruez in https://github.com/aboutcode-org/fetchcode/pull/186\n* Add changelog for v0.8.0 by @TG1999 in https://github.com/aboutcode-org/fetchcode/pull/187\n\n## New Contributors\n* @tdruez made their first contribution in https://github.com/aboutcode-org/fetchcode/pull/184\n\n**Full Changelog**: https://github.com/aboutcode-org/fetchcode/compare/v0.7.1...v0.8.0"
+    "author": "github-actions[bot]"
   },
   {
     "repo": "v0.0.1b1",
