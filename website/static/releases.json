@@ -65,6 +65,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "This is not a clever release title",
+    "repo_slug": "johnmhoran/release-test-01",
+    "repo_url": "https://github.com/johnmhoran/release-test-01",
+    "tag": "v1.0.0",
+    "tag_url": "https://github.com/johnmhoran/release-test-01/releases/tag/v1.0.0",
+    "published_at": "2025-12-17T02:23:38Z",
+    "releases_page_url": "https://github.com/johnmhoran/release-test-01/releases",
+    "compare_url": "https://github.com/johnmhoran/release-test-01/compare/v1.0.0...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "v0.8.0",
     "repo_slug": "aboutcode-org/fetchcode",
     "repo_url": "https://github.com/aboutcode-org/fetchcode",
