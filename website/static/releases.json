@@ -362,5 +362,18 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "pombredanne"
+  },
+  {
+    "repo": "",
+    "repo_slug": "aboutcode-org/saneyaml",
+    "repo_url": "https://github.com/aboutcode-org/saneyaml",
+    "tag": "",
+    "tag_url": "",
+    "published_at": "",
+    "releases_page_url": "https://github.com/aboutcode-org/saneyaml/releases",
+    "compare_url": "https://github.com/aboutcode-org/saneyaml/compare/...main",
+    "commits_since": 0,
+    "prerelease": null,
+    "author": ""
   }
 ]
