@@ -60,6 +60,7 @@ jobs:
             '$existing[0] +' \
             '[ $release[0] | {' \
             '  repo: (if .name==null then "" else .name end),' \
+            '  repo_slug: env.REPO,' \
             '  repo_url: ("https://github.com/" + env.REPO),' \
             '  tag: (if .tag_name==null then "" else .tag_name end),' \
             '  tag_url: (if .html_url==null then "" else .html_url end),' \
@@ -69,7 +70,7 @@ jobs:
             '  commits_since: 0,' \
             '  prerelease: .prerelease,' \
             '  author: (if .author==null then "" else .author.login end),' \
-            '  body: (if .body==null then "" else .body end),' \
+            '  body: (if .body==null then "" else .body end)' \
             '}' \
             '] | unique_by(.repo_url) | sort_by(.published_at) | reverse' \
             > "$FILTER"
