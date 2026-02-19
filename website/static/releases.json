@@ -27,6 +27,7 @@
   },
   {
     "repo": "This is not a clever release title",
+    "repo_slug": "johnmhoran/release-test-01",
     "repo_url": "https://github.com/johnmhoran/release-test-01",
     "tag": "v1.0.0",
     "tag_url": "https://github.com/johnmhoran/release-test-01/releases/tag/v1.0.0",
@@ -36,7 +37,7 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "johnmhoran",
-    "body": ""
+    "body": "This is not much of a release description.\r\n\r\n**Full Changelog**: https://github.com/johnmhoran/release-test-01/commits/v1.0.0"
   },
   {
     "repo": "v36.1.3",
