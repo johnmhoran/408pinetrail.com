@@ -16,19 +16,47 @@ jobs:
       max-parallel: 1
       matrix:
         repo:
+          - aboutcode-org/aboutcode-toolkit
+          - aboutcode-org/ai-gen-code-search
+          - aboutcode-org/binary-inspector
+          - aboutcode-org/commoncode
+          - aboutcode-org/container-inspector
+          - aboutcode-org/debian-inspector
           - aboutcode-org/dejacode
           - aboutcode-org/dependency-inspector
+          - aboutcode-org/elf-inspector
+          - aboutcode-org/extractcode
           - aboutcode-org/federatedcode
           - aboutcode-org/fetchcode
+          - aboutcode-org/go-inspector
+          - aboutcode-org/license-expression
+          - aboutcode-org/matchcode-toolkit
+          - aboutcode-org/nuget-inspector
+          - aboutcode-org/plugincode
+          - aboutcode-org/purldb
           - aboutcode-org/purl-validator
           - aboutcode-org/purlvalidator-go
-          - aboutcode-org/purldb
+          - aboutcode-org/pygmars
           - aboutcode-org/python-inspector
+          - aboutcode-org/rust-inspector
+          - aboutcode-org/saneyaml
           - aboutcode-org/scancode.io
+          - aboutcode-org/scancode-plugins
           - aboutcode-org/scancode-toolkit
+          - aboutcode-org/scancode-workbench
+          - aboutcode-org/source-inspector
+          - aboutcode-org/typecode
+          - aboutcode-org/univers
           - aboutcode-org/vulnerablecode
+          - aboutcode-org/www.aboutcode.org
           - johnmhoran/docusaurus-sandbox-2026-01-15
           - johnmhoran/release-test-01
+          - package-url/packageurl-python
+          - package-url/purl-registry
+          - package-url/purl-spec
+          - package-url/univers
+          - package-url/vers-spec
+          - package-url/www.packageurl.org
           # Add more repos here
 
     env:
