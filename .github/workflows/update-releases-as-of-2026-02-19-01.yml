@@ -21,7 +21,7 @@ jobs:
           - aboutcode-org/federatedcode
           - aboutcode-org/fetchcode
           - aboutcode-org/purl-validator
-          - aboutcode-org/purl-validator-go
+          - aboutcode-org/purlvalidator-go
           - aboutcode-org/purldb
           - aboutcode-org/python-inspector
           - aboutcode-org/scancode.io
