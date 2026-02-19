@@ -143,6 +143,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v0.17.6",
+    "repo_slug": "package-url/packageurl-python",
+    "repo_url": "https://github.com/package-url/packageurl-python",
+    "tag": "v0.17.6",
+    "tag_url": "https://github.com/package-url/packageurl-python/releases/tag/v0.17.6",
+    "published_at": "2025-11-24T15:20:20Z",
+    "releases_page_url": "https://github.com/package-url/packageurl-python/releases",
+    "compare_url": "https://github.com/package-url/packageurl-python/compare/v0.17.6...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "github-actions[bot]"
+  },
+  {
     "repo": "v0.0.1b1",
     "repo_slug": "aboutcode-org/purl-validator",
     "repo_url": "https://github.com/aboutcode-org/purl-validator",
