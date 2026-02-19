@@ -1,0 +1,108 @@
+name: Update Releases Feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 * * * *" # every hour at :15
+
+permissions:
+  contents: write  # needed to commit updates to releases.json
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        repo:
+          - aboutcode-org/dejacode
+          - aboutcode-org/dependency-inspector
+          - aboutcode-org/federatedcode
+          - aboutcode-org/fetchcode
+          - aboutcode-org/purl-validator
+          - aboutcode-org/purl-validator-go
+          - aboutcode-org/purldb
+          - aboutcode-org/python-inspector
+          - aboutcode-org/scancode.io
+          - aboutcode-org/scancode-toolkit
+          - aboutcode-org/vulnerablecode
+          - johnmhoran/docusaurus-sandbox-2026-01-15
+          - johnmhoran/release-test-01
+          # Add more repos here
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+
+      # 1 Checkout the target repo (Repo B)
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      # 2 Debug: show which repo is being processed
+      - name: Debug - current repo
+        run: echo "Processing ${{ matrix.repo }}"
+
+      # 3 Fetch the latest release from the current source repo
+      - name: Fetch latest release
+        run: |
+          REPO=${{ matrix.repo }}
+          curl -s -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/$REPO/releases/latest \
+            -o release.json || echo '{}' > release.json
+
+      # 4 Update releases.json in website/static cl
+      - name: Update releases.json
+        env:
+          REPO: ${{ matrix.repo }}
+        run: |
+          TMP=$(mktemp)
+          FILTER=$(mktemp --suffix=.jq)
+          mkdir -p website/static
+          if [ ! -f website/static/releases.json ]; then
+            echo "[]" > website/static/releases.json
+          fi
+          printf '%s\n' \
+            '$existing[0] +' \
+            '[ $release[0] | {' \
+            '  repo: (if .name==null then "" else .name end),' \
+            '  repo_slug: env.REPO,' \
+            '  repo_url: ("https://github.com/" + env.REPO),' \
+            '  tag: (if .tag_name==null then "" else .tag_name end),' \
+            '  tag_url: (if .html_url==null then "" else .html_url end),' \
+            '  published_at: (if .published_at==null then "" else .published_at end),' \
+            '  releases_page_url: ("https://github.com/" + env.REPO + "/releases"),' \
+            '  compare_url: ("https://github.com/" + env.REPO + "/compare/" + (if .tag_name==null then "" else .tag_name end) + "...main"),' \
+            '  commits_since: 0,' \
+            '  prerelease: .prerelease,' \
+            '  author: (if .author==null then "" else .author.login end),' \
+            '  body: (if .body==null then "" else .body end)' \
+            '}' \
+            '] | sort_by(.published_at) | reverse | unique_by(.repo_url) | sort_by(.published_at) | reverse' \
+            > "$FILTER"
+          jq -n \
+            --slurpfile existing website/static/releases.json \
+            --slurpfile release release.json \
+            -f "$FILTER" > "$TMP"
+          mv "$TMP" website/static/releases.json
+          rm -f release.json "$FILTER"
+        shell: bash
+
+        # 5 Commit & push changes if releases.json changed
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add website/static/releases.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update releases for ${{ matrix.repo }}"
+            git pull --rebase origin main
+            git push
+          else
+            echo "No changes detected"
+          fi
+        shell: bash
