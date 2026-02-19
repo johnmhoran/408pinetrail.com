@@ -1,13 +1,13 @@
 [
   {
-    "repo": "Another polling test",
+    "repo": "Tag v1.0.3",
     "repo_slug": "johnmhoran/release-test-01",
     "repo_url": "https://github.com/johnmhoran/release-test-01",
-    "tag": "v1.0.2",
-    "tag_url": "https://github.com/johnmhoran/release-test-01/releases/tag/v1.0.2",
-    "published_at": "2026-02-19T21:15:22Z",
+    "tag": "v1.0.3",
+    "tag_url": "https://github.com/johnmhoran/release-test-01/releases/tag/v1.0.3",
+    "published_at": "2026-02-19T22:38:31Z",
     "releases_page_url": "https://github.com/johnmhoran/release-test-01/releases",
-    "compare_url": "https://github.com/johnmhoran/release-test-01/compare/v1.0.2...main",
+    "compare_url": "https://github.com/johnmhoran/release-test-01/compare/v1.0.3...main",
     "commits_since": 0,
     "prerelease": false,
     "author": "johnmhoran"
