@@ -90,7 +90,9 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+          git stash
           git pull origin main
+          git stash pop
           git add website/static/releases.json
           if ! git diff --cached --quiet; then
             git commit -m "Update latest releases"
