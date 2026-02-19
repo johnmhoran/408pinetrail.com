@@ -124,5 +124,19 @@
     "prerelease": false,
     "author": "chinyeungli",
     "body": "## What's Changed\r\n* Update link references of ownership from nexB to aboutcode-org"
+  },
+  {
+    "repo": "",
+    "repo_slug": "aboutcode-org/purl-validator-go",
+    "repo_url": "https://github.com/aboutcode-org/purl-validator-go",
+    "tag": "",
+    "tag_url": "",
+    "published_at": "",
+    "releases_page_url": "https://github.com/aboutcode-org/purl-validator-go/releases",
+    "compare_url": "https://github.com/aboutcode-org/purl-validator-go/compare/...main",
+    "commits_since": 0,
+    "prerelease": null,
+    "author": "",
+    "body": ""
   }
 ]
