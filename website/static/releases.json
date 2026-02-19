@@ -98,6 +98,20 @@
     "body": "This is a minor release.\r\n\r\n## What's Changed\r\n* Increase docker shared memory size by @TG1999 in https://github.com/aboutcode-org/vulnerablecode/pull/1896\r\n* Prepare for release v36.1.3 by @TG1999 in https://github.com/aboutcode-org/vulnerablecode/pull/1900\r\n\r\n\r\n**Full Changelog**: https://github.com/aboutcode-org/vulnerablecode/compare/v36.1.2...v36.1.3"
   },
   {
+    "repo": "v7.0.0",
+    "repo_slug": "aboutcode-org/purldb",
+    "repo_url": "https://github.com/aboutcode-org/purldb",
+    "tag": "v7.0.0",
+    "tag_url": "https://github.com/aboutcode-org/purldb/releases/tag/v7.0.0",
+    "published_at": "2025-05-14T11:22:31Z",
+    "releases_page_url": "https://github.com/aboutcode-org/purldb/releases",
+    "compare_url": "https://github.com/aboutcode-org/purldb/compare/v7.0.0...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "github-actions[bot]",
+    "body": "This is a major new release with all core code fragment and AI-generated code search features now available, including index-time matching.\r\n\r\n- We also have improved support for on demand data collection for more ecosystems.\r\n- The purldb-toolkit has moved to its own repo at https://github.com/aboutcode-org/purldb-toolkit \r\n- The matchcode-toolkit has moved to its own repo at https://github.com/aboutcode-org/matchcode-toolkit\r\n\r\n## What's Changed\r\n* Use JsonResponse #585 by @JonoYang in https://github.com/aboutcode-org/purldb/pull/586\r\n* Index time matching by @JonoYang in https://github.com/aboutcode-org/purldb/pull/591\r\n* Fixes Issue #587 by @MohannadAK in https://github.com/aboutcode-org/purldb/pull/593\r\n* Collect pypi PURL ondemand #468 by @chinyeungli in https://github.com/aboutcode-org/purldb/pull/592\r\n* Add PyPI to supported_ecosystems #599 by @JonoYang in https://github.com/aboutcode-org/purldb/pull/600\r\n* Collect Cargo PURL ondemand #594 by @chinyeungli in https://github.com/aboutcode-org/purldb/pull/598\r\n* Output verbose test failure #589 by @pombredanne in https://github.com/aboutcode-org/purldb/pull/590\r\n* Collect Rubygems PURL ondemand #595 by @chinyeungli in https://github.com/aboutcode-org/purldb/pull/603\r\n* Update skeleton by @JonoYang in https://github.com/aboutcode-org/purldb/pull/604\r\n* add on demand package data collection for nuget #597  by @chinyeungli in https://github.com/aboutcode-org/purldb/pull/606\r\n* Remove purldb-toolkit by @JonoYang in https://github.com/aboutcode-org/purldb/pull/610\r\n\r\n## New Contributors\r\n* @MohannadAK made their first contribution in https://github.com/aboutcode-org/purldb/pull/593\r\n* @chinyeungli made their first contribution in https://github.com/aboutcode-org/purldb/pull/592\r\n\r\n**Full Changelog**: https://github.com/aboutcode-org/purldb/compare/v6.0.0...v7.0.0"
+  },
+  {
     "repo": "v0.1.0",
     "repo_slug": "aboutcode-org/federatedcode",
     "repo_url": "https://github.com/aboutcode-org/federatedcode",
