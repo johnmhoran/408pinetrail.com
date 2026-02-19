@@ -26,6 +26,19 @@
     "body": ""
   },
   {
+    "repo": "v36.1.0",
+    "repo_url": "https://github.com/aboutcode-org/scancode.io",
+    "tag": "v36.1.0",
+    "tag_url": "https://github.com/aboutcode-org/scancode.io/releases/tag/v36.1.0",
+    "published_at": "2026-01-22T12:29:40Z",
+    "releases_page_url": "https://github.com/aboutcode-org/scancode.io/releases",
+    "compare_url": "https://github.com/aboutcode-org/scancode.io/compare/v36.1.0...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "github-actions[bot]",
+    "body": ""
+  },
+  {
     "repo": "This is not a clever release title",
     "repo_url": "https://github.com/johnmhoran/release-test-01",
     "tag": "v1.0.0",
