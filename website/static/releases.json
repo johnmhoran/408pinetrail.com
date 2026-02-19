@@ -163,8 +163,7 @@
     "compare_url": "https://github.com/aboutcode-org/dependency-inspector/compare/v2.0.1...main",
     "commits_since": 0,
     "prerelease": false,
-    "author": "chinyeungli",
-    "body": "## What's Changed\r\n* Update link references of ownership from nexB to aboutcode-org"
+    "author": "chinyeungli"
   },
   {
     "repo": "",
