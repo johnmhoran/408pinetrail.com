@@ -42,7 +42,7 @@ jobs:
             https://api.github.com/repos/$REPO/releases/latest \
             -o release.json || echo '{}' > release.json
 
-      # 4️⃣ Update releases.json in website/static cl
+      # 4️⃣ Update releases.json in website/static cl -- 2026-02-18 Wednesday 16:07:03.  error log has JSON for 1 repo!
       - name: Update releases.json
         env:
           REPO: ${{ matrix.repo }}
@@ -55,7 +55,7 @@ jobs:
           fi
           printf '%s\n' \
             '$existing[0] +' \
-            '[ input | {' \
+            '[ $release[0] | {' \
             '  repo: if .name==null then "" else .name end,' \
             '  repo_url: "https://github.com/" + env.REPO,' \
             '  tag: if .tag_name==null then "" else .tag_name end,' \
@@ -70,14 +70,10 @@ jobs:
             '}' \
             '] | sort_by(.published_at) | reverse' \
             > "$FILTER"
-          echo "=== FILTER CONTENTS ==="
-          cat "$FILTER"
-          echo "=== END FILTER ==="
-          echo "=== RELEASE.JSON CONTENTS ==="
-          cat release.json
-          echo "=== END RELEASE.JSON ==="
-          jq --slurpfile existing website/static/releases.json \
-            -f "$FILTER" release.json > "$TMP"
+          jq -n \
+            --slurpfile existing website/static/releases.json \
+            --slurpfile release release.json \
+            -f "$FILTER" > "$TMP"
           mv "$TMP" website/static/releases.json
           rm -f release.json "$FILTER"
         shell: bash
