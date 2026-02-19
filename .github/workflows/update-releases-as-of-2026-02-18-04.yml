@@ -17,6 +17,8 @@ jobs:
         repo:
           - johnmhoran/release-test-01
           - johnmhoran/docusaurus-sandbox-2026-01-15
+          - aboutcode-org/scancode.io
+          - aboutcode-org/vulnerablecode
           # Add more repos here
 
     env:
@@ -89,8 +91,9 @@ jobs:
           git config user.email "github-actions@github.com"
           git add website/static/releases.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update latest releases"
+            git pull --rebase origin main
             git push
           else
             echo "No changes detected"
           fi
+        shell: bash

@@ -30,18 +30,22 @@ export default function Releases() {
               <th>Repo</th>
               <th>Tag</th>
               <th>Published</th>
-              <th>Link</th>
+              <th>Releases Page</th>
+              <th>Body</th>
             </tr>
           </thead>
           <tbody>
             {repos.map((info, idx) => (
               <tr key={idx}>
-                <td>{info.repo}</td>
+                <td>
+                  <a href={info.repo_url} target='_blank'>{info.repo}</a>
+                </td>
                 <td>{info.tag}</td>
                 <td>{info.published_at}</td>
                 <td>
-                  <a href={info.releases_page_url}>Releases Page</a>
+                  <a href={info.releases_page_url} target='_blank'>{info.releases_page_url}</a>
                 </td>
+                <td>{info.body}</td>
               </tr>
             ))}
           </tbody>
