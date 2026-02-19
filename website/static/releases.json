@@ -13,6 +13,19 @@
     "author": "johnmhoran"
   },
   {
+    "repo": "First release",
+    "repo_slug": "package-url/www.packageurl.org",
+    "repo_url": "https://github.com/package-url/www.packageurl.org",
+    "tag": "v1.0.0",
+    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.0",
+    "published_at": "2026-02-13T23:11:47Z",
+    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
+    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.0...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "v0.35.0",
     "repo_slug": "aboutcode-org/purlvalidator-go",
     "repo_url": "https://github.com/aboutcode-org/purlvalidator-go",
