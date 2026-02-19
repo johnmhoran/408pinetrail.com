@@ -84,6 +84,20 @@
     "body": "## What's Changed\r\n* Add initial code by @JonoYang in https://github.com/aboutcode-org/purl-validator/pull/26\r\n* Create helper method to handle test map deletion by @JonoYang in https://github.com/aboutcode-org/purl-validator/pull/27\r\n* Update CHANGELOG.rst and setup.cfg by @JonoYang in https://github.com/aboutcode-org/purl-validator/pull/28\r\n\r\n## New Contributors\r\n* @JonoYang made their first contribution in https://github.com/aboutcode-org/purl-validator/pull/26\r\n\r\n**Full Changelog**: https://github.com/aboutcode-org/purl-validator/commits/v0.0.1b1"
   },
   {
+    "repo": "v0.15.0",
+    "repo_slug": "aboutcode-org/python-inspector",
+    "repo_url": "https://github.com/aboutcode-org/python-inspector",
+    "tag": "v0.15.0",
+    "tag_url": "https://github.com/aboutcode-org/python-inspector/releases/tag/v0.15.0",
+    "published_at": "2025-11-05T07:59:14Z",
+    "releases_page_url": "https://github.com/aboutcode-org/python-inspector/releases",
+    "compare_url": "https://github.com/aboutcode-org/python-inspector/compare/v0.15.0...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "github-actions[bot]",
+    "body": "This is a bugfix release, also with updated python support.\r\n\r\n## What's Changed\r\n\r\n* Filter out empty values from `install_requires` by @nnobelis in https://github.com/aboutcode-org/python-inspector/pull/250\r\n* Ensure that the cached file is not empty before using it by @MarcelBochtler in https://github.com/aboutcode-org/python-inspector/pull/251\r\n* Release prep v0.15.0 by @AyanSinhaMahapatra in https://github.com/aboutcode-org/python-inspector/pull/252\r\n\r\n## New Contributors\r\n* @nnobelis made their first contribution in https://github.com/aboutcode-org/python-inspector/pull/250\r\n\r\n**Full Changelog**: https://github.com/aboutcode-org/python-inspector/compare/v0.14.4...v0.15.0"
+  },
+  {
     "repo": "v36.1.3",
     "repo_slug": "aboutcode-org/vulnerablecode",
     "repo_url": "https://github.com/aboutcode-org/vulnerablecode",
