@@ -1,5 +1,18 @@
 [
   {
+    "repo": "Tag 0.1.6",
+    "repo_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15",
+    "tag": "0.1.6",
+    "tag_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/releases/tag/0.1.6",
+    "published_at": "2026-02-16T03:11:58Z",
+    "releases_page_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/releases",
+    "compare_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/compare/0.1.6...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran",
+    "body": ""
+  },
+  {
     "repo": "v36.1.0",
     "repo_url": "https://github.com/aboutcode-org/scancode.io",
     "tag": "v36.1.0",
