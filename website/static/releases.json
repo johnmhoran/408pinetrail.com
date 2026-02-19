@@ -92,8 +92,7 @@
     "compare_url": "https://github.com/aboutcode-org/purl-validator/compare/v0.0.1b1...main",
     "commits_since": 0,
     "prerelease": false,
-    "author": "JonoYang",
-    "body": "## What's Changed\r\n* Add initial code by @JonoYang in https://github.com/aboutcode-org/purl-validator/pull/26\r\n* Create helper method to handle test map deletion by @JonoYang in https://github.com/aboutcode-org/purl-validator/pull/27\r\n* Update CHANGELOG.rst and setup.cfg by @JonoYang in https://github.com/aboutcode-org/purl-validator/pull/28\r\n\r\n## New Contributors\r\n* @JonoYang made their first contribution in https://github.com/aboutcode-org/purl-validator/pull/26\r\n\r\n**Full Changelog**: https://github.com/aboutcode-org/purl-validator/commits/v0.0.1b1"
+    "author": "JonoYang"
   },
   {
     "repo": "v0.15.0",
