@@ -443,6 +443,19 @@
   },
   {
     "repo": "",
+    "repo_slug": "package-url/purl-registry",
+    "repo_url": "https://github.com/package-url/purl-registry",
+    "tag": "",
+    "tag_url": "",
+    "published_at": "",
+    "releases_page_url": "https://github.com/package-url/purl-registry/releases",
+    "compare_url": "https://github.com/package-url/purl-registry/compare/...main",
+    "commits_since": 0,
+    "prerelease": null,
+    "author": ""
+  },
+  {
+    "repo": "",
     "repo_slug": "aboutcode-org/www.aboutcode.org",
     "repo_url": "https://github.com/aboutcode-org/www.aboutcode.org",
     "tag": "",
