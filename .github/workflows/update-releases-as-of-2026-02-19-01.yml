@@ -79,8 +79,7 @@ jobs:
             '  compare_url: ("https://github.com/" + env.REPO + "/compare/" + (if .tag_name==null then "" else .tag_name end) + "...main"),' \
             '  commits_since: 0,' \
             '  prerelease: .prerelease,' \
-            '  author: (if .author==null then "" else .author.login end),' \
-            '  body: (if .body==null then "" else .body end)' \
+            '  author: (if .author==null then "" else .author.login end)' \
             '}' \
             '] | sort_by(.published_at) | reverse | unique_by(.repo_url) | sort_by(.published_at) | reverse' \
             > "$FILTER"
