@@ -456,6 +456,19 @@
   },
   {
     "repo": "",
+    "repo_slug": "package-url/vers-spec",
+    "repo_url": "https://github.com/package-url/vers-spec",
+    "tag": "",
+    "tag_url": "",
+    "published_at": "",
+    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
+    "compare_url": "https://github.com/package-url/vers-spec/compare/...main",
+    "commits_since": 0,
+    "prerelease": null,
+    "author": ""
+  },
+  {
+    "repo": "",
     "repo_slug": "package-url/univers",
     "repo_url": "https://github.com/package-url/univers",
     "tag": "",
