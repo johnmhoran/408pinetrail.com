@@ -91,6 +91,7 @@ jobs:
           git config user.email "github-actions@github.com"
           git add website/static/releases.json
           if ! git diff --cached --quiet; then
+            git commit -m "Update latest releases"
             git pull --rebase origin main
             git push
           else
