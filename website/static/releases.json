@@ -1,5 +1,18 @@
 [
   {
+    "repo": "Scheduled-polling test",
+    "repo_slug": "johnmhoran/release-test-01",
+    "repo_url": "https://github.com/johnmhoran/release-test-01",
+    "tag": "1.0.1",
+    "tag_url": "https://github.com/johnmhoran/release-test-01/releases/tag/1.0.1",
+    "published_at": "2026-02-19T20:50:42Z",
+    "releases_page_url": "https://github.com/johnmhoran/release-test-01/releases",
+    "compare_url": "https://github.com/johnmhoran/release-test-01/compare/1.0.1...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "Tag 0.1.6",
     "repo_slug": "johnmhoran/docusaurus-sandbox-2026-01-15",
     "repo_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15",
@@ -141,19 +154,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "This is not a clever release title",
-    "repo_slug": "johnmhoran/release-test-01",
-    "repo_url": "https://github.com/johnmhoran/release-test-01",
-    "tag": "v1.0.0",
-    "tag_url": "https://github.com/johnmhoran/release-test-01/releases/tag/v1.0.0",
-    "published_at": "2025-12-17T02:23:38Z",
-    "releases_page_url": "https://github.com/johnmhoran/release-test-01/releases",
-    "compare_url": "https://github.com/johnmhoran/release-test-01/compare/v1.0.0...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "johnmhoran"
   },
   {
     "repo": "v0.8.0",
