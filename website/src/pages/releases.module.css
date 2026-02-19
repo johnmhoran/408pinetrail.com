@@ -150,3 +150,39 @@ table td {
     color: var(--ifm-table-cell-color);
     color: #000000;
 }
+
+/* ========================================== */
+/* 2026-02-19 Thursday 08:42:41. cl */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  white-space: nowrap;
+}
+
+.table th {
+  font-weight: 600;
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.table tr:hover {
+  background-color: var(--ifm-color-emphasis-50);
+}
+
+.table td:first-child {
+  font-family: monospace;
+  font-size: 0.9rem;
+}

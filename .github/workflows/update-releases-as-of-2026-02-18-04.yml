@@ -16,10 +16,19 @@ jobs:
       max-parallel: 1
       matrix:
         repo:
-          - johnmhoran/release-test-01
-          - johnmhoran/docusaurus-sandbox-2026-01-15
+          - aboutcode-org/dejacode
+          - aboutcode-org/dependency-inspector
+          - aboutcode-org/federatedcode
+          - aboutcode-org/fetchcode
+          - aboutcode-org/purl-validator
+          - aboutcode-org/purl-validator-go
+          - aboutcode-org/purldb
+          - aboutcode-org/python-inspector
           - aboutcode-org/scancode.io
+          - aboutcode-org/scancode-toolkit
           - aboutcode-org/vulnerablecode
+          - johnmhoran/docusaurus-sandbox-2026-01-15
+          - johnmhoran/release-test-01
           # Add more repos here
 
     env:

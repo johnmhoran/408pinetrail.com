@@ -4,18 +4,21 @@ import styles from './releases.module.css';
 
 export default function Releases() {
   const [data, setData] = useState([]);
+
   useEffect(() => {
+    // fetch('/releases.json')
     fetch('./releases.json')
       .then(res => res.json())
       .then(setData)
       .catch(() => setData([]));
   }, []);
 
+  // Sort newest first
   const repos = data.sort(
     (a, b) => new Date(b.published_at) - new Date(a.published_at)
   );
 
-  if (repos.length === 0) return <Layout><p>Loading releases...</p></Layout>;
+  if (repos.length === 0) return <Layout><p>Loading releases...??</p></Layout>;
 
   return (
     <Layout title="Latest Releases">
@@ -28,24 +31,22 @@ export default function Releases() {
               <th>Tag</th>
               <th>Published</th>
               <th>Releases Page</th>
+              <th>Body</th>
             </tr>
           </thead>
           <tbody>
             {repos.map((info, idx) => (
               <tr key={idx}>
                 <td>
-                  <a href={info.repo_url} target='_blank' rel='noreferrer'>
-                    {info.repo_url.replace("https://github.com/", "")}
-                  </a>
+                  {/* <a href={info.repo_url} target='_blank'>{info.repo}</a> */}
+                  <a href={info.repo_url} target='_blank'>{info.repo_slug}</a>
                 </td>
                 <td>{info.tag}</td>
-                {/* <td>{new Date(info.published_at).toLocaleDateString()}</td> */}
-                <td>{new Date(info.published_at).toISOString().replace('T', ' ').replace('.000Z', ' UTC')}</td>
+                <td>{info.published_at}</td>
                 <td>
-                  <a href={info.releases_page_url} target='_blank' rel='noreferrer'>
-                    Releases
-                  </a>
+                  <a href={info.releases_page_url} target='_blank'>{info.releases_page_url}</a>
                 </td>
+                <td>{info.body}</td>
               </tr>
             ))}
           </tbody>
