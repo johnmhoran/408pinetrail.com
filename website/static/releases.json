@@ -1,6 +1,7 @@
 [
   {
     "repo": "Tag 0.1.6",
+    "repo_slug": "johnmhoran/docusaurus-sandbox-2026-01-15",
     "repo_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15",
     "tag": "0.1.6",
     "tag_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/releases/tag/0.1.6",
@@ -10,7 +11,7 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "johnmhoran",
-    "body": ""
+    "body": "Tag 0.1.6 -- fingers crossed that /website/static will be productive."
   },
   {
     "repo": "v36.1.0",
