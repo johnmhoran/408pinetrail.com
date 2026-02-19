@@ -62,8 +62,7 @@
     "compare_url": "https://github.com/johnmhoran/release-test-01/compare/v1.0.0...main",
     "commits_since": 0,
     "prerelease": false,
-    "author": "johnmhoran",
-    "body": "This is not much of a release description.\r\n\r\n**Full Changelog**: https://github.com/johnmhoran/release-test-01/commits/v1.0.0"
+    "author": "johnmhoran"
   },
   {
     "repo": "v0.8.0",
