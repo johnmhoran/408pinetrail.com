@@ -19,6 +19,7 @@ const sidebars = {
     about: [
         'about/about-news',
         'about/about-latest-releases',
+        'about/mermaid-from-grok-2026-02-20',
     ],
 };
 

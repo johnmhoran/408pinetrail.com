@@ -111,7 +111,16 @@ const config = {
 
     markdown: {
         format: 'detect', // Auto-detects: .md = plain Markdown (CommonMark), .mdx = MDX
+        // 2026-02-21 Saturday 01:12:34. Per https://grok.com/c/d78f6e2b-5908-4bd8-a192-37c1c1df791a?rid=3528f028-7397-41c0-a87e-a01062e9d516
+        mermaid: true,          // ← tells the MDX processor to recognize ```mermaid
     },
+
+    // ────────────────────────────────────────────────
+    // Add this line in the top-level config (themes array)
+    themes: [
+        '@docusaurus/theme-mermaid',
+        // ... other themes if you have them (classic is a plugin, not a theme here)
+    ],
 
     // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
     future: {
