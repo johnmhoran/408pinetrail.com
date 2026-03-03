@@ -13,6 +13,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v1.0.01",
+    "repo_slug": "package-url/www.packageurl.org",
+    "repo_url": "https://github.com/package-url/www.packageurl.org",
+    "tag": "v1.0.01",
+    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.01",
+    "published_at": "2026-03-03T01:03:23Z",
+    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
+    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.01...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "Tag v1.0.3",
     "repo_slug": "johnmhoran/release-test-01",
     "repo_url": "https://github.com/johnmhoran/release-test-01",
@@ -34,19 +47,6 @@
     "published_at": "2026-02-16T03:11:58Z",
     "releases_page_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/releases",
     "compare_url": "https://github.com/johnmhoran/docusaurus-sandbox-2026-01-15/compare/0.1.6...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "johnmhoran"
-  },
-  {
-    "repo": "First release",
-    "repo_slug": "package-url/www.packageurl.org",
-    "repo_url": "https://github.com/package-url/www.packageurl.org",
-    "tag": "v1.0.0",
-    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.0",
-    "published_at": "2026-02-13T23:11:47Z",
-    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
-    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.0...main",
     "commits_since": 0,
     "prerelease": false,
     "author": "johnmhoran"
