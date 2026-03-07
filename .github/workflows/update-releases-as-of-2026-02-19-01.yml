@@ -3,7 +3,8 @@ name: Update Releases Feed
 on:
   workflow_dispatch:
   schedule:
-    - cron: "15 * * * *" # every hour at :15
+    # - cron: "15 * * * *" # every hour at :15
+    - cron: "15 9 * * *" # every day at 09:15 UTC
 
 permissions:
   contents: write  # needed to commit updates to releases.json
