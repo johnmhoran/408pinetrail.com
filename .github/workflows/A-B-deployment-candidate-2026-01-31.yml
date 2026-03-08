@@ -116,6 +116,11 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.DREAMHOST_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Debug build contents
+        run: |
+          echo "Listing build root:"
+          ls -la build
+
       - name: Deploy via rsync
         run: |
           rsync -avz --delete build/ \
