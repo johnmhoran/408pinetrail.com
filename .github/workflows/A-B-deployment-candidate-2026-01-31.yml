@@ -68,6 +68,7 @@ jobs:
         with:
           name: docusaurus-build
           path: website/build
+          include-hidden-files: true
 
 
   deploy-gh-pages:
