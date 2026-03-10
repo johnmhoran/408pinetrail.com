@@ -13,6 +13,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v1.0.02",
+    "repo_slug": "package-url/www.packageurl.org",
+    "repo_url": "https://github.com/package-url/www.packageurl.org",
+    "tag": "v1.0.02",
+    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.02",
+    "published_at": "2026-03-10T00:49:07Z",
+    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
+    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.02...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "v37.0.0",
     "repo_slug": "aboutcode-org/vulnerablecode",
     "repo_url": "https://github.com/aboutcode-org/vulnerablecode",
@@ -24,19 +37,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "v1.0.01",
-    "repo_slug": "package-url/www.packageurl.org",
-    "repo_url": "https://github.com/package-url/www.packageurl.org",
-    "tag": "v1.0.01",
-    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.01",
-    "published_at": "2026-03-03T01:03:23Z",
-    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
-    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.01...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "johnmhoran"
   },
   {
     "repo": "Tag v1.0.3",
