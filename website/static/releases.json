@@ -13,6 +13,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v1.0.03",
+    "repo_slug": "package-url/www.packageurl.org",
+    "repo_url": "https://github.com/package-url/www.packageurl.org",
+    "tag": "v1.0.03",
+    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.03",
+    "published_at": "2026-06-10T23:04:12Z",
+    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
+    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.03...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "v5.8.0",
     "repo_slug": "aboutcode-org/dejacode",
     "repo_url": "https://github.com/aboutcode-org/dejacode",
@@ -141,19 +154,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "v1.0.02",
-    "repo_slug": "package-url/www.packageurl.org",
-    "repo_url": "https://github.com/package-url/www.packageurl.org",
-    "tag": "v1.0.02",
-    "tag_url": "https://github.com/package-url/www.packageurl.org/releases/tag/v1.0.02",
-    "published_at": "2026-03-10T00:49:07Z",
-    "releases_page_url": "https://github.com/package-url/www.packageurl.org/releases",
-    "compare_url": "https://github.com/package-url/www.packageurl.org/compare/v1.0.02...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "johnmhoran"
   },
   {
     "repo": "Tag v1.0.3",
