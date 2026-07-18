@@ -247,7 +247,7 @@
     "author": "github-actions[bot]"
   },
   {
-    "repo": "First release",
+    "repo": "v1.0.0",
     "repo_slug": "package-url/purl-spec",
     "repo_url": "https://github.com/package-url/purl-spec",
     "tag": "v1.0.0",
