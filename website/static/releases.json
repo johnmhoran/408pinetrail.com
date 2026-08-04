@@ -13,6 +13,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v1.0.1",
+    "repo_slug": "package-url/purl-spec",
+    "repo_url": "https://github.com/package-url/purl-spec",
+    "tag": "v1.0.1",
+    "tag_url": "https://github.com/package-url/purl-spec/releases/tag/v1.0.1",
+    "published_at": "2026-08-03T22:49:35Z",
+    "releases_page_url": "https://github.com/package-url/purl-spec/releases",
+    "compare_url": "https://github.com/package-url/purl-spec/compare/v1.0.1...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "v0.7.2",
     "repo_slug": "aboutcode-org/source-inspector",
     "repo_url": "https://github.com/aboutcode-org/source-inspector",
@@ -245,19 +258,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "v1.0.0",
-    "repo_slug": "package-url/purl-spec",
-    "repo_url": "https://github.com/package-url/purl-spec",
-    "tag": "v1.0.0",
-    "tag_url": "https://github.com/package-url/purl-spec/releases/tag/v1.0.0",
-    "published_at": "2025-12-19T00:11:01Z",
-    "releases_page_url": "https://github.com/package-url/purl-spec/releases",
-    "compare_url": "https://github.com/package-url/purl-spec/compare/v1.0.0...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "johnmhoran"
   },
   {
     "repo": "v0.17.6",
