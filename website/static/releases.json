@@ -13,6 +13,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v1.0.1",
+    "repo_slug": "package-url/vers-spec",
+    "repo_url": "https://github.com/package-url/vers-spec",
+    "tag": "v1.0.1",
+    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.0.1",
+    "published_at": "2026-08-07T22:43:00Z",
+    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
+    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.0.1...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "johnmhoran"
+  },
+  {
     "repo": "v0.2.1",
     "repo_slug": "aboutcode-org/binary-inspector",
     "repo_url": "https://github.com/aboutcode-org/binary-inspector",
@@ -37,19 +50,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "v1.0.0",
-    "repo_slug": "package-url/vers-spec",
-    "repo_url": "https://github.com/package-url/vers-spec",
-    "tag": "v1.0.0",
-    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.0.0",
-    "published_at": "2026-08-04T19:37:22Z",
-    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
-    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.0.0...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "johnmhoran"
   },
   {
     "repo": "v1.0.1",
