@@ -13,17 +13,17 @@
     "author": "github-actions[bot]"
   },
   {
-    "repo": "v1.0.1",
+    "repo": "v1.0.2",
     "repo_slug": "package-url/vers-spec",
     "repo_url": "https://github.com/package-url/vers-spec",
-    "tag": "v1.0.1",
-    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.0.1",
-    "published_at": "2026-08-07T22:43:00Z",
+    "tag": "v1.0.2",
+    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.0.2",
+    "published_at": "2026-08-10T18:03:24Z",
     "releases_page_url": "https://github.com/package-url/vers-spec/releases",
-    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.0.1...main",
+    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.0.2...main",
     "commits_since": 0,
     "prerelease": false,
-    "author": "johnmhoran"
+    "author": "mjherzog"
   },
   {
     "repo": "v0.2.1",
