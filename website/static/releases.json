@@ -13,6 +13,19 @@
     "author": "github-actions[bot]"
   },
   {
+    "repo": "v1.2.0",
+    "repo_slug": "package-url/vers-spec",
+    "repo_url": "https://github.com/package-url/vers-spec",
+    "tag": "v1.2.0",
+    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.2.0",
+    "published_at": "2026-09-09T23:42:11Z",
+    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
+    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.2.0...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "mjherzog"
+  },
+  {
     "repo": "v5.9.0",
     "repo_slug": "aboutcode-org/dejacode",
     "repo_url": "https://github.com/aboutcode-org/dejacode",
@@ -24,19 +37,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "v1.0.2",
-    "repo_slug": "package-url/vers-spec",
-    "repo_url": "https://github.com/package-url/vers-spec",
-    "tag": "v1.0.2",
-    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.0.2",
-    "published_at": "2026-08-10T18:03:24Z",
-    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
-    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.0.2...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "mjherzog"
   },
   {
     "repo": "v0.2.1",
