@@ -26,6 +26,19 @@
     "author": "mjherzog"
   },
   {
+    "repo": "v1.2.1",
+    "repo_slug": "package-url/vers-spec",
+    "repo_url": "https://github.com/package-url/vers-spec",
+    "tag": "v1.2.1",
+    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.2.1",
+    "published_at": "2026-10-07T23:05:13Z",
+    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
+    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.2.1...main",
+    "commits_since": 0,
+    "prerelease": false,
+    "author": "mjherzog"
+  },
+  {
     "repo": "v40.2.0",
     "repo_slug": "aboutcode-org/vulnerablecode",
     "repo_url": "https://github.com/aboutcode-org/vulnerablecode",
@@ -63,19 +76,6 @@
     "commits_since": 0,
     "prerelease": false,
     "author": "github-actions[bot]"
-  },
-  {
-    "repo": "v1.2.0",
-    "repo_slug": "package-url/vers-spec",
-    "repo_url": "https://github.com/package-url/vers-spec",
-    "tag": "v1.2.0",
-    "tag_url": "https://github.com/package-url/vers-spec/releases/tag/v1.2.0",
-    "published_at": "2026-09-09T23:42:11Z",
-    "releases_page_url": "https://github.com/package-url/vers-spec/releases",
-    "compare_url": "https://github.com/package-url/vers-spec/compare/v1.2.0...main",
-    "commits_since": 0,
-    "prerelease": false,
-    "author": "mjherzog"
   },
   {
     "repo": "v5.9.0",
